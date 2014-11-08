@@ -1,30 +1,36 @@
-package negocio.ppal;
-
-import negocio.atts.Arbol;
-import negocio.atts.ArbolSeco;
-import negocio.atts.Id;
-import negocio.atts.Nombre;
-import negocio.atts.NombreCient;
+package ppal;
 
 
-/**
- * @author gon
- * @version 1.0
- * @created 04-nov-2014 08:27:10 p.m.
- */
 public class Especie {
 
-	public ArbolSeco m_ArbolSeco;
-	public Arbol m_Arbol;
-	public Id m_Id;
-	public NombreCient m_NombreCient;
-	public Nombre m_Nombre;
-
-	public Especie(){
-
+	private int id;
+	private String nombreCorriente;
+	private String nombreCientifico;
+	
+	public int getId() {
+		return id;
 	}
-
-	public void finalize() throws Throwable {
-
+	public void setId(int id) {
+		this.id = id;
 	}
-}//end Especie
+	public String getNombreCorriente() {
+		return nombreCorriente;
+	}
+	public void setNombreCorriente(String nombreCorriente) {
+		this.nombreCorriente = nombreCorriente;
+	}
+	public String getNombreCientifico() {
+		return nombreCientifico;
+	}
+	public void setNombreCientifico(String nombreCientifico) {
+		this.nombreCientifico = nombreCientifico;
+	}
+	
+	public Especie(int id, String nombreCorriente, String nombreCientifico) {
+		super();
+		this.id = id;
+		this.nombreCorriente = nombreCorriente;
+		this.nombreCientifico = nombreCientifico;
+	}
+	
+}
