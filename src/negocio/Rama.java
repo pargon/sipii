@@ -1,7 +1,18 @@
 package negocio;
 
+import hbt.dao.PersistentObject;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class Rama {
+@Entity
+@Table(name="Rama")
+public class Rama extends PersistentObject{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private boolean corteza;
 	private boolean cruzadas;

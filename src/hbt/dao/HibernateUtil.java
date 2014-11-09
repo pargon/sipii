@@ -3,6 +3,8 @@ package hbt.dao;
 
 import negocio.Calle;
 import negocio.Copa;
+import negocio.Tronco;
+import negocio.Rama;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -20,6 +22,8 @@ public class HibernateUtil
 		{
 			AnnotationConfiguration config = new AnnotationConfiguration();
 			config.addAnnotatedClass(Copa.class);
+			config.addAnnotatedClass(Tronco.class);
+			config.addAnnotatedClass(Rama.class);
 			
 			sessionFactory = config.buildSessionFactory();
 		}

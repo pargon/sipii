@@ -1,5 +1,10 @@
 package negocio;
 
+
+import hbt.dao.PersistentObject;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 enum CavidadBasal{
 	No, Chica, Mediana, Grande
 }
@@ -17,7 +22,16 @@ enum Interferencia{
 	Cordon, Cantera, Vereda
 }
 
-public class Tronco {
+
+@Entity
+@Table(name="Tronco")
+public class Tronco extends PersistentObject{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private CavidadBasal cb;
 	private CavidadMedia cm;
