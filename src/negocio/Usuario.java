@@ -1,30 +1,74 @@
 package negocio;
 
-import negocio.atts.Codigo;
-import negocio.atts.Contrasena;
-import negocio.atts.Nombre;
-import negocio.atts.NombreCompleto;
-import negocio.atts.Perfil;
-import negocio.atts.UltAcceso;
+import java.util.Date;
+
+import hbt.dao.PersistentObject;
+
+import javax.persistence.Entity;
 
 
-/**
- * @author gon
- * @version 1.0
- * @created 04-nov-2014 08:27:20 p.m.
- */
-public class Usuario {
+@Entity
+public class Usuario extends PersistentObject{
 
-	public NombreCompleto m_NombreCompleto;
-	public Perfil m_Perfil;
-	public OrdendeServicio m_OrdendeServicio;
-	public Codigo m_Codigo;
-	public Nombre m_Nombre;
-	public UltAcceso m_UltAcceso;
-	public Contrasena m_Contrasena;
-
+	public String nombreUsuario;
+	public String nombreComp;
+	public String clave;
+	public String mail;
+	public Date ultAcceso;
+	
+	
 	public Usuario(){
 
+	}
+	
+	public Usuario(String nombreUsuario, String nombreComp, String clave,
+			String mail) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.nombreComp = nombreComp;
+		this.clave = clave;
+		this.mail = mail;
+	}
+
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getNombreComp() {
+		return nombreComp;
+	}
+
+	public void setNombreComp(String nombreComp) {
+		this.nombreComp = nombreComp;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public Date getUltAcceso() {
+		return ultAcceso;
+	}
+
+	public void setUltAcceso(Date ultAcceso) {
+		this.ultAcceso = ultAcceso;
 	}
 
 	public void finalize() throws Throwable {

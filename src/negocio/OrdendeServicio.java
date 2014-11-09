@@ -1,38 +1,69 @@
 package negocio;
 
-import negocio.atts.Anotaciones;
-import negocio.atts.DiasVencimiento;
-import negocio.atts.Estado;
-import negocio.atts.FechaAlta;
-import negocio.atts.Id;
-import negocio.atts.IdEspacio;
-import negocio.atts.IdManetimiento;
-import negocio.atts.IdReclamo;
-import negocio.atts.TareaTipo;
-import negocio.atts.UsuarioAlta;
+import java.util.Date;
 
+import hbt.dao.PersistentObject;
 
-/**
- * @author gon
- * @version 1.0
- * @created 04-nov-2014 08:27:19 p.m.
- */
-public class OrdendeServicio {
+public class OrdendeServicio extends PersistentObject{
 
-	public Estado m_Estado;
-	public IdEspacio m_IdEspacio;
-	public FechaAlta m_FechaAlta;
-	public DiasVencimiento m_DiasVencimiento;
-	public Id m_Id;
-	public Anotaciones m_Anotaciones;
-	public UsuarioAlta m_UsuarioAlta;
-	public IdReclamo m_IdReclamo;
-	public TareaTipo m_TareaTipo;
-	public IdManetimiento m_IdManetimiento;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public OrdendeServicio(){
-
+	public enum est{
+		Abierta, Cerrada
 	}
+	
+	public est estado;
+	public Espacio espacio;
+	public Date fechaAlta;
+	public int diasVencimiento;
+	
+	public String anotaciones;
+	public Usuario usuarioAlta;
+	public Reclamo reclamo;
+	public TareaTipo tareaTipo;
+	public Mantenimiento mantenimiento;
+	
+
+
+	public OrdendeServicio(String anotaciones, TareaTipo tareaTipo) {
+		super();
+		this.anotaciones = anotaciones;
+		this.tareaTipo = tareaTipo;
+		
+		estado = est.Abierta;
+		fechaAlta = new Date();
+		diasVencimiento = tareaTipo.getDias();
+		//usuarioAlta =		
+	}
+
+
+
+	public Reclamo getReclamo() {
+		return reclamo;
+	}
+
+
+
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
+	}
+
+
+
+	public Mantenimiento getMantenimiento() {
+		return mantenimiento;
+	}
+
+
+
+	public void setMantenimiento(Mantenimiento mantenimiento) {
+		this.mantenimiento = mantenimiento;
+	}
+
+
 
 	public void finalize() throws Throwable {
 
