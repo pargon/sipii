@@ -1,7 +1,16 @@
-package negocio;
+package controlador;
 
 import hbt.dao.HibernateDAO;
+
 import java.util.List;
+
+import negocio.Ciudadano;
+import negocio.Espacio;
+import negocio.Mantenimiento;
+import negocio.OrdendeServicio;
+import negocio.Reclamo;
+import negocio.TareaTipo;
+import negocio.Usuario;
 
 public class GestionOServicio {
 
@@ -23,12 +32,35 @@ public class GestionOServicio {
 		}
 	}
 	
-	public List<Espacio> buscarEspacio(String dir, String chapa){
-		return null;
+	public Espacio buscarEspacio(String dir, String chapa){
+		String sql = "from espacio e join cuadra c join calle d "
+				+ " where e.chapaCatastral := chap "
+				+ " and d.nombre := dir";
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().parametros2(sql, "chap", chapa, "dir", dir);
+		return le.get(0);	
 	}
 	
-	public int crearODS(int tarea, String desc){
-		return 0;
+	public List<Espacio> buscarEspacioXEstado(){
+		String sql = "from espacio order by criticidad";
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
+		return le;
+		
+	}
+	
+	public List<Espacio> actualizarCritEspacio(){
+		String sql = "from espacio order by criticidad";
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
+		return le;
+		
+	}
+	
+	public int crearODS(int tarea, String anot){
+		List<TareaTipo> lt = (List<TareaTipo>) HibernateDAO.getInstancia().parametros( "from tareatipo", "id", String.valueOf(tarea));
+		TareaTipo tar = lt.get(0);
+		
+		OrdendeServicio os = new OrdendeServicio(anot, tar);
+		
+		return os.getId();
 	}
 	
 	public List<Usuario> getListaTecnicosDisp(){
