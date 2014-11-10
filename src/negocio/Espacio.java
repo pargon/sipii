@@ -1,32 +1,47 @@
 package negocio;
 
-enum TipoCatastral{
-	Normal, Descendente, Ascendente
-}
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-enum Tipo{
-	Arbol, CanteraVacia, Arbusto, CanteraPotencial
-}
+import hbt.dao.PersistentObject;
 
-public class Espacio {
+@Entity
+public class Espacio extends PersistentObject{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	private int id;
+	public enum TipoCatastral{
+		Normal, Descendente, Ascendente
+	}
+
+	public enum Tipo{
+		Arbol, CanteraVacia, Arbusto, CanteraPotencial
+	}
+
+	
 	private String chapaCatastral;
 	private TipoCatastral tipoCat;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Cuadra cuadra;
+	
 	private String latitud;
 	private String longitud;
 	private float anchoPlantera;
 	private float largoPlantera;
 	private Tipo tipo;
 	private boolean canteroElevado;
+	
+	@OneToOne(cascade=CascadeType.ALL)
 	private Arbol arbol;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	
 	public String getChapaCatastral() {
 		return chapaCatastral;
 	}
@@ -88,12 +103,12 @@ public class Espacio {
 		this.arbol = arbol;
 	}
 	
-	public Espacio(int id, String chapaCatastral, TipoCatastral tipoCat,
+	public Espacio(String chapaCatastral, TipoCatastral tipoCat,
 			Cuadra cuadra, String latitud, String longitud,
 			float anchoPlantera, float largoPlantera, Tipo tipo,
 			boolean canteroElevado, Arbol arbol) {
 		super();
-		this.id = id;
+		
 		this.chapaCatastral = chapaCatastral;
 		this.tipoCat = tipoCat;
 		this.cuadra = cuadra;

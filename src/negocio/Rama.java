@@ -1,18 +1,27 @@
 package negocio;
 
+import java.io.Serializable;
+
 import hbt.dao.PersistentObject;
+
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Rama")
-public class Rama extends PersistentObject{
+@Embeddable
+public class Rama implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public enum Destrucciones{
+		Clavaduras, Quemaduras, Agujeros, Anillos
+	}
+	public enum Interferencia{
+		Cordon, Cantera, Vereda
+	}
 	
 	private boolean corteza;
 	private boolean cruzadas;
@@ -113,5 +122,33 @@ public class Rama extends PersistentObject{
 	public void setInterf(Interferencia interf) {
 		this.interf = interf;
 	}
+	
+	
+	public Rama() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Rama(boolean corteza, boolean cruzadas, boolean malInsertadas,
+			boolean secas, boolean muerteRegresiva, boolean fisuradas,
+			boolean cavidades, boolean excesivas, boolean bajas,
+			boolean epifitas, boolean fructificaciones, boolean tocones,
+			Destrucciones dest, Interferencia interf) {
+		super();
+		this.corteza = corteza;
+		this.cruzadas = cruzadas;
+		this.malInsertadas = malInsertadas;
+		this.secas = secas;
+		this.muerteRegresiva = muerteRegresiva;
+		this.fisuradas = fisuradas;
+		this.cavidades = cavidades;
+		this.excesivas = excesivas;
+		this.bajas = bajas;
+		this.epifitas = epifitas;
+		this.fructificaciones = fructificaciones;
+		this.tocones = tocones;
+		this.dest = dest;
+		this.interf = interf;
+	}
 
+	
 }

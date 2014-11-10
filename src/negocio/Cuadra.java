@@ -1,29 +1,41 @@
 package negocio;
 
+import hbt.dao.PersistentObject;
 
-enum UsoSuelo{
-	comercial,residencial, industrial, baldio
-}
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
-enum TipoEdificacion{
-	baldio,alta,media,baja
-}
 
-public class Cuadra {
+@Entity
+public class Cuadra extends PersistentObject{
 	
-	private int id ;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+	public enum UsoSuelo{
+		comercial,residencial, industrial, baldio
+	}
+
+	public enum TipoEdificacion{
+		baldio,alta,media,baja
+	}
+	
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Calle calle;
+	
 	private int alturaDesde;
 	private int alturaHasta;
 	private float anchoVereda;
 	private UsoSuelo usoSuelo;
 	private TipoEdificacion tipoedif;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public Calle getCalle() {
 		return calle;
 	}
@@ -63,10 +75,9 @@ public class Cuadra {
 
 	
 	
-	public Cuadra(int id, Calle calle, int alturaDesde, int alturaHasta,
+	public Cuadra(Calle calle, int alturaDesde, int alturaHasta,
 			float anchoVereda, UsoSuelo usoSuelo, TipoEdificacion tipoedif) {
 		super();
-		this.id = id;
 		this.calle = calle;
 		this.alturaDesde = alturaDesde;
 		this.alturaHasta = alturaHasta;

@@ -1,33 +1,48 @@
 package negocio;
 
-enum Inclinacion{
-	
-}
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
-enum Orientacion{
-	
-}
+import hbt.dao.PersistentObject;
 
-public class Arbol {
+
+@Entity
+public class Arbol extends PersistentObject{
 	
-	private int id;
+	public enum Inclinacion{
+		NA, mas45, menos45
+	}
+
+	public enum Orientacion{
+		NA, mas45, menos45
+	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Especie especie;
+	
+	@Embedded
 	private Copa copa;
+	
+	@Embedded
 	private Tronco tronco;
+	
+	@Embedded
 	private Rama rama;
+	
 	private boolean seco;
-	private char altura; 
+	private String altura; 
 	private int estado;
 	private float perimetro;
 	private Inclinacion incl;
 	private Orientacion orient;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public Especie getEspecie() {
 		return especie;
 	}
@@ -58,10 +73,10 @@ public class Arbol {
 	public void setSeco(boolean seco) {
 		this.seco = seco;
 	}
-	public char getAltura() {
+	public String getAltura() {
 		return altura;
 	}
-	public void setAltura(char altura) {
+	public void setAltura(String altura) {
 		this.altura = altura;
 	}
 	public int getEstado() {
@@ -89,11 +104,10 @@ public class Arbol {
 		this.orient = orient;
 	}
 	
-	public Arbol(int id, Especie especie, Copa copa, Tronco tronco, Rama rama,
-			boolean seco, char altura, int estado, float perimetro,
+	public Arbol(Especie especie, Copa copa, Tronco tronco, Rama rama,
+			boolean seco, String altura, int estado, float perimetro,
 			Inclinacion incl, Orientacion orient) {
 		super();
-		this.id = id;
 		this.especie = especie;
 		this.copa = copa;
 		this.tronco = tronco;

@@ -1,13 +1,25 @@
 package hbt.dao;
 
 
+import negocio.Arbol;
 import negocio.Calle;
+import negocio.Ciudadano;
 import negocio.Copa;
+import negocio.Cuadra;
+import negocio.Espacio;
+import negocio.Especie;
+import negocio.Mantenimiento;
+import negocio.OrdendeServicio;
+import negocio.Reclamo;
+import negocio.TareaTipo;
 import negocio.Tronco;
 import negocio.Rama;
+import negocio.Usuario;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
+
+import controlador.GestionOServicio;
 
 
 
@@ -21,9 +33,17 @@ public class HibernateUtil
 		try
 		{
 			AnnotationConfiguration config = new AnnotationConfiguration();
-			config.addAnnotatedClass(Copa.class);
-			config.addAnnotatedClass(Tronco.class);
-			config.addAnnotatedClass(Rama.class);
+			config.addAnnotatedClass(Arbol.class);
+			config.addAnnotatedClass(Calle.class);
+			config.addAnnotatedClass(Ciudadano.class);
+			config.addAnnotatedClass(Cuadra.class);
+			config.addAnnotatedClass(Espacio.class);
+			config.addAnnotatedClass(Especie.class);
+			config.addAnnotatedClass(Mantenimiento.class);
+			config.addAnnotatedClass(OrdendeServicio.class);
+			//config.addAnnotatedClass(Reclamo.class);
+			config.addAnnotatedClass(TareaTipo.class);
+			config.addAnnotatedClass(Usuario.class);
 			
 			sessionFactory = config.buildSessionFactory();
 		}

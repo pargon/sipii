@@ -1,12 +1,15 @@
 package negocio;
 
+import java.io.Serializable;
+
 import hbt.dao.PersistentObject;
+
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Copa")
-public class Copa extends PersistentObject{
+@Embeddable
+public class Copa implements Serializable{
 
 	/**
 	 * 
@@ -29,7 +32,7 @@ public class Copa extends PersistentObject{
 	
 	private DensidadFollaje df;
 	private ColorFollaje cf;
-	private Estado estado;
+	private Estado cp_estado;
 	
 	
 	public DensidadFollaje getDf() {
@@ -45,18 +48,22 @@ public class Copa extends PersistentObject{
 		this.cf = cf;
 	}
 	public Estado getEstado() {
-		return estado;
+		return cp_estado;
 	}
 	public void setEstado(Estado estado) {
-		this.estado = estado;
+		this.cp_estado = estado;
 	}
 	
 	
+	public Copa() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Copa(DensidadFollaje df, ColorFollaje cf, Estado estado) {
 		super();
 		this.df = df;
 		this.cf = cf;
-		this.estado = estado;
+		this.cp_estado = estado;
 	}
 	
 	

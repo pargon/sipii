@@ -2,9 +2,13 @@ package negocio;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import java.util.List;
+
 import hbt.dao.HibernateDAO;
 import hbt.dao.PersistentObject;
 
@@ -16,14 +20,20 @@ public class Reclamo extends PersistentObject{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	enum est{abierto, cerrado}
+	public enum est{abierto, cerrado}
 	
-	
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Ciudadano ciudadano;
 	private String Desc;
 	private Date m_Fecha;
+
+	@OneToMany(cascade=CascadeType.ALL)
 	private OrdendeServicio m_OrdendeServicio;
+	
 	private est Estado;
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Usuario tecnico;
 	private int diasVto;
 	
@@ -71,14 +81,6 @@ public class Reclamo extends PersistentObject{
 
 	public void setM_OrdendeServicio(OrdendeServicio m_OrdendeServicio) {
 		this.m_OrdendeServicio = m_OrdendeServicio;
-	}
-
-	public est getEstado() {
-		return Estado;
-	}
-
-	public void setEstado(est estado) {
-		Estado = estado;
 	}
 
 	public Usuario getTecnico() {

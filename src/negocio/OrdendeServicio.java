@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+
 import hbt.dao.PersistentObject;
 
 public class OrdendeServicio extends PersistentObject{
@@ -16,14 +19,25 @@ public class OrdendeServicio extends PersistentObject{
 	}
 	
 	public est estado;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	public Espacio espacio;
+	
 	public Date fechaAlta;
 	public int diasVencimiento;
 	
 	public String anotaciones;
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	public Usuario usuarioAlta;
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	public Reclamo reclamo;
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	public TareaTipo tareaTipo;
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	public Mantenimiento mantenimiento;
 	
 

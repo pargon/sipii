@@ -1,19 +1,22 @@
 package negocio;
 
-public class Calle {
+import javax.persistence.Entity;
+
+import hbt.dao.PersistentObject;
+
+@Entity
+public class Calle extends PersistentObject{
 	
-	private int id ;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private int alturaDesde;
 	private int alturaHasta;
 	
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -33,9 +36,9 @@ public class Calle {
 		this.alturaHasta = alturaHasta;
 	}
 	
-	public Calle(int id, String nombre, int alturaDesde, int alturaHasta) {
+	public Calle(String nombre, int alturaDesde, int alturaHasta) {
 		super();
-		this.id = id;
+		
 		this.nombre = nombre;
 		this.alturaDesde = alturaDesde;
 		this.alturaHasta = alturaHasta;

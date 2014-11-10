@@ -1,18 +1,18 @@
 package negocio;
 
+import hbt.dao.PersistentObject;
 
-public class Especie {
+import javax.persistence.Entity;
 
-	private int id;
+@Entity
+public class Especie extends PersistentObject{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombreCorriente;
 	private String nombreCientifico;
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNombreCorriente() {
 		return nombreCorriente;
 	}
@@ -26,9 +26,8 @@ public class Especie {
 		this.nombreCientifico = nombreCientifico;
 	}
 	
-	public Especie(int id, String nombreCorriente, String nombreCientifico) {
+	public Especie(String nombreCorriente, String nombreCientifico) {
 		super();
-		this.id = id;
 		this.nombreCorriente = nombreCorriente;
 		this.nombreCientifico = nombreCientifico;
 	}
