@@ -23,8 +23,23 @@ public class Espacio extends PersistentObject{
 	public enum Tipo{
 		Arbol, CanteraVacia, Arbusto, CanteraPotencial
 	}
-
 	
+	public enum Estado{
+		A("No Requiere Atencion"),
+		B("Requiere Atencion"),
+		C("Requiere Atencion Urgente");
+		
+		private String detalle;
+		
+		private Estado (String e){
+			this.detalle = e;
+		}
+		@Override
+		public String toString(){
+			return detalle;
+		}
+	}
+
 	private String chapaCatastral;
 	private TipoCatastral tipoCat;
 	
@@ -37,6 +52,7 @@ public class Espacio extends PersistentObject{
 	private float largoPlantera;
 	private Tipo tipo;
 	private boolean canteroElevado;
+	private Estado est;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Arbol arbol;
@@ -103,6 +119,12 @@ public class Espacio extends PersistentObject{
 		this.arbol = arbol;
 	}
 	
+	public Estado getEst() {
+		return est;
+	}
+	public void setEst(Estado est) {
+		this.est = est;
+	}
 	public Espacio(String chapaCatastral, TipoCatastral tipoCat,
 			Cuadra cuadra, String latitud, String longitud,
 			float anchoPlantera, float largoPlantera, Tipo tipo,
