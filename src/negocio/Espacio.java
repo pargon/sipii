@@ -52,7 +52,7 @@ public class Espacio extends PersistentObject{
 	private float largoPlantera;
 	private Tipo tipo;
 	private boolean canteroElevado;
-	private Estado est;
+	private Estado estado;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Arbol arbol;
@@ -120,10 +120,10 @@ public class Espacio extends PersistentObject{
 	}
 	
 	public Estado getEst() {
-		return est;
+		return estado;
 	}
 	public void setEst(Estado est) {
-		this.est = est;
+		this.estado = est;
 	}
 	public Espacio(String chapaCatastral, TipoCatastral tipoCat,
 			Cuadra cuadra, String latitud, String longitud,

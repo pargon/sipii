@@ -2,6 +2,8 @@ package controlador;
 
 import hbt.dao.HibernateDAO;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import negocio.Ciudadano;
@@ -15,7 +17,7 @@ import negocio.Usuario;
 public class GestionOServicio {
 
 	
-	public void crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc){
+	public int crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc){
 		Ciudadano ciu = buscarCiudadano(dni);
 		if (ciu == null )
 			ciu = new Ciudadano(nom, ape, dir, tel, mail, dni);
@@ -30,35 +32,72 @@ public class GestionOServicio {
 			rec.setTecnico(tec);
 			break;
 		}
+		
+		rec.setM_Fecha(new Date());
+		
+		// persiste reclamo 
+		HibernateDAO.getInstancia().persistir(rec);
+		
+		return rec.getId();
 	}
 	
 	public Espacio buscarEspacio(String dir, String chapa){
-		String sql = "from espacio e join cuadra c join calle d "
-				+ " where e.chapaCatastral := chap "
-				+ " and d.nombre := dir";
+		String sql = "select e from Espacio e join e.cuadra c join c.calle d "
+				+ " where e.chapaCatastral = :chap "
+				+ " and d.nombre = :dir";
+		@SuppressWarnings("unchecked")
 		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().parametros2(sql, "chap", chapa, "dir", dir);
-		return le.get(0);	
+		for (Espacio e: le)
+			return e;
+		return null;
+		
 	}
 	
 	public List<Espacio> buscarEspacioXEstado(){
-		String sql = "from espacio order by criticidad";
+		String sql = "from espacio order by estado";
 		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
 		return le;
 		
 	}
 	
-	public List<Espacio> actualizarCritEspacio(){
-		String sql = "from espacio order by criticidad";
-		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
-		return le;
+	public int crearODSEsp(String calle, String chapa, String anot){
+		Espacio es = buscarEspacio(calle, chapa);
+				
+		OrdendeServicio os = new OrdendeServicio();
+		os.setAnotaciones(anot);
+		os.setEspacio(es);
 		
+		// persiste os
+		HibernateDAO.getInstancia().persistir(os);
+		
+		return os.getId();
 	}
-	
-	public int crearODS(int tarea, String anot){
-		List<TareaTipo> lt = (List<TareaTipo>) HibernateDAO.getInstancia().parametros( "from tareatipo", "id", String.valueOf(tarea));
-		TareaTipo tar = lt.get(0);
+
+	public void asignarEspacioODS(int idOds, String calle, String chapa) {
+		// TODO Auto-generated method stub
+		Espacio es = buscarEspacio(calle, chapa);
+
+		OrdendeServicio os = new OrdendeServicio();
+		os.setId(idOds);		
+		os = (OrdendeServicio) HibernateDAO.getInstancia().get(OrdendeServicio.class, os.getId());
+
+		os.setEspacio(es);
 		
-		OrdendeServicio os = new OrdendeServicio(anot, tar);
+		// guarda os
+		HibernateDAO.getInstancia().guardar(os);
+
+	}
+
+	
+	public int crearODSMan(int tar, String anot){
+		TareaTipo t = new TareaTipo();
+		t.setId(tar);		
+		t = (TareaTipo) HibernateDAO.getInstancia().get(TareaTipo.class, t.getId());
+		
+		OrdendeServicio os = new OrdendeServicio(anot, t);
+		
+		// persiste os
+		HibernateDAO.getInstancia().persistir(os);
 		
 		return os.getId();
 	}
@@ -68,36 +107,47 @@ public class GestionOServicio {
 	}
 	
 	public void asignarTecODS(int idODS, int tec){
-		List<OrdendeServicio> lo = (List<OrdendeServicio>) HibernateDAO.getInstancia().parametros( "from ordendeservicio", "id", String.valueOf(idODS));
-		OrdendeServicio os = lo.get(0);
+		OrdendeServicio os = new OrdendeServicio();
+		os.setId(idODS);		
+		os = (OrdendeServicio) HibernateDAO.getInstancia().get(OrdendeServicio.class, os.getId());
+		
 		
 		// no se cual es el tecnico
 	}
 	
 	public void asignarReclamoODS(int idODS, int rec){
-		List<OrdendeServicio> lo = (List<OrdendeServicio>) HibernateDAO.getInstancia().parametros( "from ordendeservicio", "id", String.valueOf(idODS));
-		OrdendeServicio os = lo.get(0);
+		OrdendeServicio os = new OrdendeServicio();
+		os.setId(idODS);		
+		os = (OrdendeServicio) HibernateDAO.getInstancia().get(OrdendeServicio.class, os.getId());
 		
-		List<Reclamo> lr = (List<Reclamo>) HibernateDAO.getInstancia().parametros( "from reclamo", "id", String.valueOf(rec));
-		Reclamo r = lr.get(0);
+		Reclamo r = new Reclamo();
+		r.setId(rec);		
+		r = (Reclamo) HibernateDAO.getInstancia().get(Reclamo.class, os.getId());
 		
 		// asigna reclamo a ods
 		os.setReclamo(r);
 		
+		HibernateDAO.getInstancia().guardar(os);
+		
 	}
 	
 	public void asignarMantODS(int idODS, int man){
-		List<OrdendeServicio> lo = (List<OrdendeServicio>) HibernateDAO.getInstancia().parametros( "from ordendeservicio", "id", String.valueOf(idODS));
-		OrdendeServicio os = lo.get(0);
+		OrdendeServicio os = new OrdendeServicio();
+		os.setId(idODS);		
+		os = (OrdendeServicio) HibernateDAO.getInstancia().get(OrdendeServicio.class, os.getId());
 		
-		List<Mantenimiento> lm = (List<Mantenimiento>) HibernateDAO.getInstancia().parametros( "from mantenimiento", "id", String.valueOf(man));
-		Mantenimiento m = lm.get(0);
+		Mantenimiento m = new Mantenimiento();
+		m.setId(man);
+		m = (Mantenimiento) HibernateDAO.getInstancia().get(Mantenimiento.class, m.getId());
 		
 		// asigna empresa mantenimiento a ods
 		os.setMantenimiento(m);		
+		
+		HibernateDAO.getInstancia().guardar(os);
 	}
 	private Ciudadano buscarCiudadano(String dni){
-		List<Ciudadano> lc = (List<Ciudadano>) HibernateDAO.getInstancia().parametros( "from ciudadano", "dni", dni);
+		@SuppressWarnings("unchecked")
+		List<Ciudadano> lc = (List<Ciudadano>) HibernateDAO.getInstancia().parametros( "from Ciudadano where dni=:pdni", "pdni", dni);
 		if (lc.isEmpty())
 			return null;
 		else
@@ -105,8 +155,13 @@ public class GestionOServicio {
 	}
 
 	private List<Usuario> buscaTecnicosPend(){
-		String sql = "from usuario tec where tec.id <> some (select usu.id from reclamo where estado <> '" + Reclamo.est.abierto + "')"; 
+		//		String sql = "from usuario tec where tec.id <> some (select tecnico from reclamo where estado <> :recest"; 
+		//List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().parametros(sql, "recest", String.valueOf(Reclamo.est.abierto));
+		
+		String sql = "from Usuario"; 
 		List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().getlista(sql);
+		
 		return lt;
 	}
+
 }

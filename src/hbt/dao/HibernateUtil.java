@@ -41,7 +41,7 @@ public class HibernateUtil
 			config.addAnnotatedClass(Especie.class);
 			config.addAnnotatedClass(Mantenimiento.class);
 			config.addAnnotatedClass(OrdendeServicio.class);
-			//config.addAnnotatedClass(Reclamo.class);
+			config.addAnnotatedClass(Reclamo.class);
 			config.addAnnotatedClass(TareaTipo.class);
 			config.addAnnotatedClass(Usuario.class);
 			

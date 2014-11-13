@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 @Entity
 public class Usuario extends PersistentObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String nombreUsuario;
 	public String nombreComp;
 	public String clave;

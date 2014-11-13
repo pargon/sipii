@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import java.util.List;
 
@@ -25,10 +26,10 @@ public class Reclamo extends PersistentObject{
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Ciudadano ciudadano;
-	private String Desc;
+	private String Descripcion;
 	private Date m_Fecha;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
 	private OrdendeServicio m_OrdendeServicio;
 	
 	private est Estado;
@@ -37,10 +38,15 @@ public class Reclamo extends PersistentObject{
 	private Usuario tecnico;
 	private int diasVto;
 	
+	
 	public Reclamo(Ciudadano ciu, String desc){
 		ciudadano = ciu;
-		Desc = desc;
+		Descripcion = desc;
 		Estado = est.abierto;
+	}
+
+	public Reclamo() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void cerrarReclamo(){
@@ -60,11 +66,11 @@ public class Reclamo extends PersistentObject{
 	}
 
 	public String getDesc() {
-		return Desc;
+		return Descripcion;
 	}
 
 	public void setDesc(String desc) {
-		Desc = desc;
+		Descripcion = desc;
 	}
 
 	public Date getM_Fecha() {

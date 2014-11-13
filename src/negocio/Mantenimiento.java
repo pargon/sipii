@@ -1,7 +1,10 @@
 package negocio;
 
+import javax.persistence.Entity;
+
 import hbt.dao.PersistentObject;
 
+@Entity
 public class Mantenimiento extends PersistentObject{
 
 	/**
@@ -13,6 +16,10 @@ public class Mantenimiento extends PersistentObject{
 	public Mantenimiento(String razonSocial) {
 		super();
 		RazonSocial = razonSocial;
+	}
+
+	public Mantenimiento() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	
