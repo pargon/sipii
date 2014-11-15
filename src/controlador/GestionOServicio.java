@@ -54,18 +54,20 @@ public class GestionOServicio {
 	}
 	
 	public List<Espacio> buscarEspacioXEstado(){
-		String sql = "from espacio order by estado";
+		String sql = "from Espacio order by estado desc";
 		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
 		return le;
 		
 	}
 	
-	public int crearODSEsp(String calle, String chapa, String anot){
-		Espacio es = buscarEspacio(calle, chapa);
+	public int crearODS(int tar, String anot) {
 				
-		OrdendeServicio os = new OrdendeServicio();
+		TareaTipo t = new TareaTipo();
+		t.setId(tar);		
+		t = (TareaTipo) HibernateDAO.getInstancia().get(TareaTipo.class, t.getId());
+		
+		OrdendeServicio os = new OrdendeServicio(anot, t );
 		os.setAnotaciones(anot);
-		os.setEspacio(es);
 		
 		// persiste os
 		HibernateDAO.getInstancia().persistir(os);
@@ -89,12 +91,17 @@ public class GestionOServicio {
 	}
 
 	
-	public int crearODSMan(int tar, String anot){
+	public int crearODSMan(int tar, String dir, String chapa, String anot){
+		
+		Espacio es = buscarEspacio(dir, chapa);
+		
 		TareaTipo t = new TareaTipo();
 		t.setId(tar);		
 		t = (TareaTipo) HibernateDAO.getInstancia().get(TareaTipo.class, t.getId());
 		
 		OrdendeServicio os = new OrdendeServicio(anot, t);
+		
+		os.setEspacio(es);
 		
 		// persiste os
 		HibernateDAO.getInstancia().persistir(os);
@@ -163,5 +170,13 @@ public class GestionOServicio {
 		
 		return lt;
 	}
+
+	public List<TareaTipo> buscarTareas() {
+		String sql = "from TareaTipo"; 
+		List<TareaTipo> lt = (List<TareaTipo>) HibernateDAO.getInstancia().getlista(sql);
+		
+		return lt;
+	}
+
 
 }
