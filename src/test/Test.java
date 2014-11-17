@@ -55,7 +55,7 @@ public class Test {
 		//HibernateDAO.getInstancia().persistir(ca);
 		
 		cuad = new Cuadra(ca, 1, 100, 10, Cuadra.UsoSuelo.baldio, Cuadra.TipoEdificacion.media);
-		//HibernateDAO.getInstancia().persistir(cuad);
+		HibernateDAO.getInstancia().persistir(cuad);
 		
 		esp = new Especie("arbol corriente", "arbol cient 1");
 		//HibernateDAO.getInstancia().persistir(esp);
@@ -69,8 +69,8 @@ public class Test {
 				Tronco.Interferencia.Cordon);
 		ram = new Rama(false, true, false, true, false, true, false, true, false, true, false, true, Rama.Destrucciones.Clavaduras, Rama.Interferencia.Vereda);
 		ar = new Arbol(esp, co, tr, ram, false, "2", 0, 23, Arbol.Inclinacion.mas45, Arbol.Orientacion.mas45);
-		//HibernateDAO.getInstancia().persistir(ar);
-		
+		HibernateDAO.getInstancia().persistir(ar);
+/*		
 		es = new Espacio("2345", Espacio.TipoCatastral.Ascendente, cuad, "2345", "3838383", 1, 2, Espacio.Tipo.Arbol, true, ar);
 		//HibernateDAO.getInstancia().persistir(es);
 				
@@ -116,11 +116,11 @@ public class Test {
 		idOds = gs.crearODSMan(1, "calle 1", "2345", "Problema de altura");
 		gs.asignarMantODS(idOds, man.getId());
 //		gs.asignarTecODS(idOds, tec);
-	
+		*/
 		
 		//Gestion Espacio
 		ge = new GestionEspacio();
-		ge.crearEspacio("Calle 1", "2350", Espacio.TipoCatastral.Normal, cuad,"20","21",4,4,Espacio.Tipo.Arbol,true, ar);
+		ge.crearEspacio("Calle 1", "2350", "Normal",1,"20","21",4,4,"Arbol",true,1);
 		
 		
 		System.out.println("Lista Espacios");
@@ -147,8 +147,10 @@ public class Test {
 						+itEsp.getCuadra().getCalle().getNombre() 
 						+ " N: "
 						+itEsp.getChapaCatastral()
-						+ " Alt: "
-						+itEsp.getArbol().getAltura()
+						+ " TipoCatastral: "
+						+itEsp.getTipoCat()
+						+ " Tipo: "
+						+itEsp.getTipo()					
 						+ " Estado: "
 						+itEsp.getEst());
 		

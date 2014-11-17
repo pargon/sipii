@@ -23,14 +23,22 @@ public class GestionEspacio {
 	
 	private Estado estado;
 			
-	public void crearEspacio(String dir,String chapaCat, TipoCatastral tipoCat, Cuadra cua, String lat, String longi,
-			float anchoP, float largoP, Tipo tipo, boolean canteroE,Arbol a )
+	public void crearEspacio(String dir,String chapaCat, String tipoCat,int cua, String lat, String longi,
+			float anchoP, float largoP, String tipo, boolean canteroE,int a )
 	{			
 				Espacio e = buscarEspacio(dir,chapaCat);
+				TipoCatastral tC = TipoCatastral.valueOf(tipoCat);
+				Tipo ti = Tipo.valueOf(tipo);
+				Cuadra c = new Cuadra();
+				c.setId(cua);
+				c = (Cuadra) HibernateDAO.getInstancia().get(Cuadra.class, c.getId());
+				Arbol ar = new Arbol();
+				ar.setId(a);
+				ar = (Arbol) HibernateDAO.getInstancia().get(Arbol.class, ar.getId());
 				
 				if (e==null){
-					e = new Espacio(chapaCat, tipoCat,cua,lat, longi,anchoP,largoP,tipo,canteroE,a);
-					int k=calcularEstado(a);
+					e = new Espacio(chapaCat, tC, c,lat, longi,anchoP,largoP,ti,canteroE,ar);
+					int k=calcularEstado(ar);
 					if ((k>0)&&(k<6)){	
 						e.setEst(estado.B);	
 					}else
