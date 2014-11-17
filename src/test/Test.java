@@ -4,6 +4,7 @@ package test;
 import java.util.List;
 
 import controlador.GestionOServicio;
+import controlador.GestionEspacio;
 import negocio.Arbol;
 import negocio.Calle;
 import negocio.Copa;
@@ -46,6 +47,7 @@ public class Test {
 		
 		Mantenimiento man;
 		GestionOServicio gs;
+		GestionEspacio ge;
 		
 		TareaTipo tarTip; 
 		
@@ -68,9 +70,9 @@ public class Test {
 		ram = new Rama(false, true, false, true, false, true, false, true, false, true, false, true, Rama.Destrucciones.Clavaduras, Rama.Interferencia.Vereda);
 		ar = new Arbol(esp, co, tr, ram, false, "2", 0, 23, Arbol.Inclinacion.mas45, Arbol.Orientacion.mas45);
 		//HibernateDAO.getInstancia().persistir(ar);
-		
+/*		
 		es = new Espacio("2345", Espacio.TipoCatastral.Ascendente, cuad, "2345", "3838383", 1, 2, Espacio.Tipo.Arbol, true, ar);
-		HibernateDAO.getInstancia().persistir(es);
+		//HibernateDAO.getInstancia().persistir(es);
 				
 		man = new Mantenimiento("manten1");
 		HibernateDAO.getInstancia().persistir(man);
@@ -84,7 +86,6 @@ public class Test {
 		
 		
 		gs = new GestionOServicio();
-		
 		int idRec = gs.crearReclamo("1234455", "gonzalo", "parra", "calle 1 2345", "33445566", "mail@algo.com", "se cayo un arbol sobre mi casa");
 		int idOds = gs.crearODS(2, "problema con arbol");
 		
@@ -92,8 +93,11 @@ public class Test {
 		gs.asignarReclamoODS(idOds, idRec);
 		gs.asignarEspacioODS(idOds, "calle 1", "2345");
 //		gs.asignarTecODS(idOds, tec);
+		
+	
+		
 				
-		System.out.println("Lista Espacios");
+		System.out.println("Lista Espacios x estado");
 		List<Espacio> espXest = gs.buscarEspacioXEstado();
 		for(Espacio itEsp: espXest)
 			System.out.println("espacio: " 
@@ -101,7 +105,8 @@ public class Test {
 						+" en: " 
 						+itEsp.getCuadra().getCalle().getNombre() 
 						+ " N: "
-						+itEsp.getChapaCatastral()  );		
+						+itEsp.getChapaCatastral()  );
+		
 		
 		System.out.println("Lista Tareas por hacer");
 		List<TareaTipo> ltar = gs.buscarTareas();
@@ -111,8 +116,41 @@ public class Test {
 		idOds = gs.crearODSMan(1, "calle 1", "2345", "Problema de altura");
 		gs.asignarMantODS(idOds, man.getId());
 //		gs.asignarTecODS(idOds, tec);
+		*/
+		
+		//Gestion Espacio
+		ge = new GestionEspacio();
+		ge.crearEspacio("Calle 1", "2350", Espacio.TipoCatastral.Normal, cuad,"20","21",4,4,Espacio.Tipo.Arbol,true, ar);
+		
+		
+		System.out.println("Lista Espacios");
+		List<Espacio> espge = ge.buscarEspacioTodos();
+		for(Espacio itEsp: espge)
+			System.out.println("espacio: " 
+						+itEsp.getId() 
+						+" en: " 
+						+itEsp.getCuadra().getCalle().getNombre() 
+						+ " N: "
+						+itEsp.getChapaCatastral()
+						+ " Estado: "
+						+itEsp.getEst());
 		
 		System.out.println("alta de datos");
+		
+		ge.modificarEspacio("Calle 1","2350");
+		System.out.println("Lista Espacios");
+		List<Espacio> espge1 = ge.buscarEspacioTodos();
+		for(Espacio itEsp: espge1)
+			System.out.println("espacio: " 
+						+itEsp.getId() 
+						+" en: " 
+						+itEsp.getCuadra().getCalle().getNombre() 
+						+ " N: "
+						+itEsp.getChapaCatastral()
+						+ " Alt: "
+						+itEsp.getArbol().getAltura()
+						+ " Estado: "
+						+itEsp.getEst());
 		
 	}
 }
