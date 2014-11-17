@@ -70,7 +70,7 @@ public class Test {
 		ram = new Rama(false, true, false, true, false, true, false, true, false, true, false, true, Rama.Destrucciones.Clavaduras, Rama.Interferencia.Vereda);
 		ar = new Arbol(esp, co, tr, ram, false, "2", 0, 23, Arbol.Inclinacion.mas45, Arbol.Orientacion.mas45);
 		//HibernateDAO.getInstancia().persistir(ar);
-/*		
+		
 		es = new Espacio("2345", Espacio.TipoCatastral.Ascendente, cuad, "2345", "3838383", 1, 2, Espacio.Tipo.Arbol, true, ar);
 		//HibernateDAO.getInstancia().persistir(es);
 				
@@ -116,7 +116,7 @@ public class Test {
 		idOds = gs.crearODSMan(1, "calle 1", "2345", "Problema de altura");
 		gs.asignarMantODS(idOds, man.getId());
 //		gs.asignarTecODS(idOds, tec);
-		*/
+	
 		
 		//Gestion Espacio
 		ge = new GestionEspacio();

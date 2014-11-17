@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import Beans.bOrdendeServicio;
 import negocio.Ciudadano;
 import negocio.Espacio;
 import negocio.Mantenimiento;
@@ -129,7 +130,7 @@ public class GestionOServicio {
 		
 		Reclamo r = new Reclamo();
 		r.setId(rec);		
-		r = (Reclamo) HibernateDAO.getInstancia().get(Reclamo.class, os.getId());
+		r = (Reclamo) HibernateDAO.getInstancia().get(Reclamo.class, r.getId());
 		
 		// asigna reclamo a ods
 		os.setReclamo(r);
@@ -176,6 +177,33 @@ public class GestionOServicio {
 		List<TareaTipo> lt = (List<TareaTipo>) HibernateDAO.getInstancia().getlista(sql);
 		
 		return lt;
+	}
+
+	public List<bOrdendeServicio> mostrarODS() {
+		List<bOrdendeServicio> lbo = new ArrayList<>();
+		
+		List<OrdendeServicio> los = (List<OrdendeServicio>) HibernateDAO.getInstancia().getlista("from OrdendeServicio") ;
+		
+		for(OrdendeServicio os:los){
+			Espacio es= os.getEspacio();
+			String calle = "";
+			String chapa = "";
+			if(es != null){
+				calle = es.getCuadra().getCalle().getNombre();
+				chapa = es.getChapaCatastral();
+			}	
+				
+			bOrdendeServicio bos = new bOrdendeServicio(
+					os.getId(),
+					os.getAnotaciones(),
+					os.getEstado().toString(),
+					calle,
+					chapa,
+					os.getFechaAlta(),
+					os.getTareaTipo().getDesc());
+			lbo.add(bos);
+		}
+		return lbo;
 	}
 
 
