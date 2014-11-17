@@ -8,6 +8,11 @@ import hbt.dao.PersistentObject;
 public class Calle extends PersistentObject{
 	
 	
+	public Calle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 */

@@ -119,6 +119,10 @@ public class Arbol extends PersistentObject{
 		this.incl = incl;
 		this.orient = orient;
 	}
+	public Arbol() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 
 }

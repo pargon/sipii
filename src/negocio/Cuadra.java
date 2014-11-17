@@ -85,6 +85,10 @@ public class Cuadra extends PersistentObject{
 		this.usoSuelo = usoSuelo;
 		this.tipoedif = tipoedif;
 	}
+	public Cuadra() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }

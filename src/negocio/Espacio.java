@@ -142,6 +142,10 @@ public class Espacio extends PersistentObject{
 		this.canteroElevado = canteroElevado;
 		this.arbol = arbol;
 	}
+	public Espacio() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 	

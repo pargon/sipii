@@ -31,5 +31,9 @@ public class Especie extends PersistentObject{
 		this.nombreCorriente = nombreCorriente;
 		this.nombreCientifico = nombreCientifico;
 	}
+	public Especie() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 }
