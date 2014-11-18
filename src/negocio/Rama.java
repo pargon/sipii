@@ -16,10 +16,10 @@ public class Rama implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public enum Destrucciones{
+	public enum DestruccionesRama{
 		Clavaduras, Quemaduras, Agujeros, Anillos
 	}
-	public enum Interferencia{
+	public enum InterferenciaRama{
 		Cordon, Cantera, Vereda
 	}
 	
@@ -35,8 +35,8 @@ public class Rama implements Serializable{
 	private boolean epifitas;
 	private boolean fructificaciones;
 	private boolean tocones;	
-	private Destrucciones dest;
-	private Interferencia interf;
+	private DestruccionesRama dest;
+	private InterferenciaRama interf;
 	
 	public boolean isCorteza() {
 		return corteza;
@@ -110,16 +110,16 @@ public class Rama implements Serializable{
 	public void setTocones(boolean tocones) {
 		this.tocones = tocones;
 	}
-	public Destrucciones getDest() {
+	public DestruccionesRama getDest() {
 		return dest;
 	}
-	public void setDest(Destrucciones dest) {
+	public void setDest(DestruccionesRama dest) {
 		this.dest = dest;
 	}
-	public Interferencia getInterf() {
+	public InterferenciaRama getInterf() {
 		return interf;
 	}
-	public void setInterf(Interferencia interf) {
+	public void setInterf(InterferenciaRama interf) {
 		this.interf = interf;
 	}
 	
@@ -132,7 +132,7 @@ public class Rama implements Serializable{
 			boolean secas, boolean muerteRegresiva, boolean fisuradas,
 			boolean cavidades, boolean excesivas, boolean bajas,
 			boolean epifitas, boolean fructificaciones, boolean tocones,
-			Destrucciones dest, Interferencia interf) {
+			DestruccionesRama dest, InterferenciaRama interf) {
 		super();
 		this.corteza = corteza;
 		this.cruzadas = cruzadas;

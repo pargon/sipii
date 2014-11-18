@@ -8,6 +8,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import negocio.Copa.ColorFollaje;
+import negocio.Copa.DensidadFollaje;
+import negocio.Espacio.Estado;
+
 @Embeddable
 public class Copa implements Serializable{
 
@@ -25,14 +29,14 @@ public class Copa implements Serializable{
 		Normal, Anormal
 	}
 	
-	public enum Estado{
+	public enum EstadoCopa{
 		Equilibrada, Descopada,Brotada
 	}
 
 	
 	private DensidadFollaje df;
 	private ColorFollaje cf;
-	private Estado cp_estado;
+	private EstadoCopa cp_estado;
 	
 	
 	public DensidadFollaje getDf() {
@@ -47,10 +51,10 @@ public class Copa implements Serializable{
 	public void setCf(ColorFollaje cf) {
 		this.cf = cf;
 	}
-	public Estado getEstado() {
+	public EstadoCopa getEstado() {
 		return cp_estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstadoCopa(EstadoCopa estado) {
 		this.cp_estado = estado;
 	}
 	
@@ -59,12 +63,13 @@ public class Copa implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Copa(DensidadFollaje df, ColorFollaje cf, Estado estado) {
+	public Copa(DensidadFollaje df, ColorFollaje cf, EstadoCopa est) {
 		super();
 		this.df = df;
 		this.cf = cf;
-		this.cp_estado = estado;
+		this.cp_estado = est;
 	}
+
 	
 	
 }

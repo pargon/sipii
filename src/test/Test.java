@@ -50,7 +50,7 @@ public class Test {
 		GestionEspacio ge;
 		
 		TareaTipo tarTip; 
-		
+		/*		
 		ca = new Calle("calle 1", 1, 1000);
 		//HibernateDAO.getInstancia().persistir(ca);
 		
@@ -70,7 +70,7 @@ public class Test {
 		ram = new Rama(false, true, false, true, false, true, false, true, false, true, false, true, Rama.Destrucciones.Clavaduras, Rama.Interferencia.Vereda);
 		ar = new Arbol(esp, co, tr, ram, false, "2", 0, 23, Arbol.Inclinacion.mas45, Arbol.Orientacion.mas45);
 		HibernateDAO.getInstancia().persistir(ar);
-/*		
+		
 		es = new Espacio("2345", Espacio.TipoCatastral.Ascendente, cuad, "2345", "3838383", 1, 2, Espacio.Tipo.Arbol, true, ar);
 		//HibernateDAO.getInstancia().persistir(es);
 				
@@ -119,10 +119,14 @@ public class Test {
 		*/
 		
 		//Gestion Espacio
+		ca = new Calle("calle 1", 1, 1000);
+		cuad = new Cuadra(ca, 1, 100, 10, Cuadra.UsoSuelo.baldio, Cuadra.TipoEdificacion.media);
+		HibernateDAO.getInstancia().persistir(cuad);
 		ge = new GestionEspacio();
-		ge.crearEspacio("Calle 1", "2350", "Normal",1,"20","21",4,4,"Arbol",true,1);
-		
-		
+		ge.crearEspacio2("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+				"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
+				true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
+	
 		System.out.println("Lista Espacios");
 		List<Espacio> espge = ge.buscarEspacioTodos();
 		for(Espacio itEsp: espge)
@@ -136,7 +140,7 @@ public class Test {
 						+itEsp.getEst());
 		
 		System.out.println("alta de datos");
-		
+		/*
 		ge.modificarEspacio("Calle 1","2350");
 		System.out.println("Lista Espacios");
 		List<Espacio> espge1 = ge.buscarEspacioTodos();
@@ -153,7 +157,7 @@ public class Test {
 						+itEsp.getTipo()					
 						+ " Estado: "
 						+itEsp.getEst());
-		
+		*/
 	}
 }
 
