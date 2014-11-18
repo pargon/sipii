@@ -29,7 +29,7 @@ public class AltaReclamo extends HttpServlet{
 			throws ServletException, IOException {
 
 		GestionOServicio gs = new GestionOServicio();
-		
+		String vstr [] = req.getParameterValues("checked");
 		int idRec = gs.crearReclamo(
 				req.getParameter("dni"),
 				req.getParameter("nombre"),
@@ -37,7 +37,8 @@ public class AltaReclamo extends HttpServlet{
 				req.getParameter("direccion"),
 				req.getParameter("telefono"),
 				req.getParameter("mail"),
-				req.getParameter("desc"));
+				req.getParameter("desc"),
+				vstr);
 		
 	    req.setAttribute("idRec", idRec);
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/rec.jsp");

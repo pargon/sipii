@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import Beans.bOrdendeServicio;
 import Beans.bReclamo;
 import negocio.Ciudadano;
@@ -19,7 +21,9 @@ import negocio.Usuario;
 public class GestionOServicio {
 
 	
-	public int crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc){
+	public int crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc, String [] algo){
+		System.out.println("valor bool:" + algo[0] + algo[1]  );
+		
 		Ciudadano ciu = buscarCiudadano(dni);
 		if (ciu == null )
 			ciu = new Ciudadano(nom, ape, dir, tel, mail, dni);
@@ -196,7 +200,7 @@ public class GestionOServicio {
 				
 			Mantenimiento ma = os.getMantenimiento();
 			String mant = "";
-			if(mant != null)
+			if(ma != null)
 				mant = ma.getRazonSocial();
 				
 			bOrdendeServicio bos = new bOrdendeServicio(

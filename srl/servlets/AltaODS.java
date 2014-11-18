@@ -44,6 +44,16 @@ public class AltaODS extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
+		
+	}
+
+	@Override
+	protected void doHead(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doHead(req, resp);
+		
+		req.getRequestDispatcher("alta_ods.jsp").forward(req,resp);
 	}
 
     

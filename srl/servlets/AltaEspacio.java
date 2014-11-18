@@ -32,21 +32,9 @@ public class AltaEspacio extends HttpServlet{
 
 		GestionEspacio gs = new GestionEspacio();
 		
-		gs.crearEspacio(
-				req.getParameter("calle") ,
-				req.getParameter("chapa") ,
-				req.getParameter("tipocat") ,
-				req.getParameter("latitud") ,
-				req.getParameter("longitud") ,
-				req.getParameter("ancho_plant") ,
-				req.getParameter("largo_plant") ,
-				req.getParameter("tipo") ,
-				req.getParameter("cantero_ele"));
+	
 		
-		int idODS = gs.crearODS( Integer.parseInt( req.getParameter("tarea")),
-					req.getParameter("anot"));
-		
-	    req.setAttribute("idODS", idODS);
+//	    req.setAttribute("idODS", idODS);
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/ods.jsp");
 	    dispatcher.forward(req, resp);
 

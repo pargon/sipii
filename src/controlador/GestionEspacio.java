@@ -33,7 +33,7 @@ public class GestionEspacio {
 	
 	private Estado estado;
 			
-	public void crearEspacio2(String dir,String chapaCat, String tipoCat,int cua, String lat, String longi,
+	public void crearEspacio2(String dir,String chapaCat, String tipoCat,String lat, String longi,
 			float anchoP, float largoP, String tipo, boolean canteroE, boolean ar_s, String ar_alt,int ar_est, float ar_per,String ar_incl,String ar_ori,String co_dF, String co_cF, String co_Est,String tr_cB, String tr_cM, String tr_cA, boolean tr_co ,boolean tr_ab,
 			boolean tr_desg,boolean tr_desc,boolean tr_raj,boolean tr_fr,boolean tr_ch,boolean tr_en,String tr_dest,String tr_interf, boolean ra_co,boolean ra_cr,
 			boolean ra_mI,boolean ra_s,boolean ra_mR,boolean ra_f,boolean ra_c,boolean ra_ex,boolean ra_b,boolean ra_ep,
