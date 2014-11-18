@@ -21,6 +21,14 @@ public class Mantenimiento extends PersistentObject{
 	public Mantenimiento() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public String getRazonSocial() {
+		return RazonSocial;
+	}
+
+	public void setRazonSocial(String razonSocial) {
+		RazonSocial = razonSocial;
+	}
 	
 	
 }

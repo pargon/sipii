@@ -104,4 +104,21 @@ public class Reclamo extends PersistentObject{
 	public void setDiasVto(int diasVto) {
 		this.diasVto = diasVto;
 	}
+
+	public String getDescripcion() {
+		return Descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+
+	public est getEstado() {
+		return Estado;
+	}
+
+	public void setEstado(est estado) {
+		Estado = estado;
+	}
+	
 }//end Reclamo

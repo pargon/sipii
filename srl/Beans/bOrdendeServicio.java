@@ -11,6 +11,7 @@ public class bOrdendeServicio {
 	private String chapa;
 	private Date fecha;
 	private String tarea;
+	private String mant;
 	
 	public String getTarea() {
 		return tarea;
@@ -54,8 +55,15 @@ public class bOrdendeServicio {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	public String getMant() {
+		return mant;
+	}
+	public void setMant(String mant) {
+		this.mant = mant;
+	}
+	
 	public bOrdendeServicio(int id, String anot, String estado, String calle,
-			String chapa, Date fecha, String tarea) {
+			String chapa, Date fecha, String tarea, String mant) {
 		super();
 		this.id = id;
 		this.anot = anot;
@@ -64,7 +72,9 @@ public class bOrdendeServicio {
 		this.chapa = chapa;
 		this.fecha = fecha;
 		this.tarea = tarea;
+		this.mant = mant;
 	}
+	
 	
 	
 }

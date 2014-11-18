@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import Beans.bOrdendeServicio;
+import Beans.bReclamo;
 import negocio.Ciudadano;
 import negocio.Espacio;
 import negocio.Mantenimiento;
@@ -193,14 +194,50 @@ public class GestionOServicio {
 				chapa = es.getChapaCatastral();
 			}	
 				
+			Mantenimiento ma = os.getMantenimiento();
+			String mant = "";
+			if(mant != null)
+				mant = ma.getRazonSocial();
+				
 			bOrdendeServicio bos = new bOrdendeServicio(
 					os.getId(),
 					os.getAnotaciones(),
 					os.getEstado().toString(),
 					calle,
-					chapa,
+					chapa, 
 					os.getFechaAlta(),
-					os.getTareaTipo().getDesc());
+					os.getTareaTipo().getDesc(),
+					mant);
+			lbo.add(bos);
+		}
+		return lbo;
+	}
+
+	public List<bReclamo> mostrarRec() {
+		List<bReclamo> lbo = new ArrayList<>();
+		
+		List<Reclamo> los = (List<Reclamo>) HibernateDAO.getInstancia().getlista("from Reclamo") ;
+			
+		for(Reclamo os:los){
+			OrdendeServicio ods = os.getM_OrdendeServicio();
+			int idODS = 0;
+			if(ods != null)
+				idODS = ods.getId();
+			Usuario tec = os.getTecnico();
+			String ntec = "";
+			if(tec!=null)
+				ntec = tec.getNombreComp();
+			
+			bReclamo bos = new bReclamo(					
+					os.getId(),
+					os.getEstado().toString() ,
+					os.getCiudadano().getDni(),
+					os.getCiudadano().getNombre() + " " + os.getCiudadano().getApellido(),
+					os.getDesc(),
+					os.getM_Fecha(), 
+					idODS,
+					ntec,
+					os.getDiasVto() );
 			lbo.add(bos);
 		}
 		return lbo;

@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import controlador.GestionOServicio;
 
-@WebServlet("/AltaODS")
-public class AltaODS extends HttpServlet{
+@WebServlet("/AltaRec")
+public class AltaReclamo extends HttpServlet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AltaODS() {
+	public AltaReclamo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -30,11 +30,17 @@ public class AltaODS extends HttpServlet{
 
 		GestionOServicio gs = new GestionOServicio();
 		
-		int idODS = gs.crearODS( Integer.parseInt( req.getParameter("tarea")),
-					req.getParameter("anot"));
+		int idRec = gs.crearReclamo(
+				req.getParameter("dni"),
+				req.getParameter("nombre"),
+				req.getParameter("apellido"),
+				req.getParameter("direccion"),
+				req.getParameter("telefono"),
+				req.getParameter("mail"),
+				req.getParameter("desc"));
 		
-	    req.setAttribute("idODS", idODS);
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/ods.jsp");
+	    req.setAttribute("idRec", idRec);
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/rec.jsp");
 	    dispatcher.forward(req, resp);
 
 	}
