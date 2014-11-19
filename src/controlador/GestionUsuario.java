@@ -26,9 +26,21 @@ public class GestionUsuario {
 	public void crearSesion(String user, String ter){
 		String sql = "from Usuario where nombreUsuario = :usu";
 		List<Usuario> lu = (List<Usuario>) HibernateDAO.getInstancia().parametros(sql, "usu", user) ;
-
-		Usuario u = lu.get(0); 
-		Sesion ses = new Sesion(new Date(), u, ter);
+		Usuario u = lu.get(0);
+		
+		//busca terminal
+		Terminal t= new Terminal();
+		t.setTer(ter);
+		t = (Terminal) HibernateDAO.getInstancia().get(Terminal.class, t.getTer());
+		//la crea si no existe
+		if(t == null){
+			t = new Terminal();
+			t.setTer(ter);
+			HibernateDAO.getInstancia().persistir(t);
+		}
+		 
+		// crea sesion con terminal y usuario
+		Sesion ses = new Sesion(new Date(), u, t);
 		
 		HibernateDAO.getInstancia().persistir(ses);
 	}

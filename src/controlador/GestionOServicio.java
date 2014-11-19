@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import Beans.bOrdendeServicio;
@@ -59,7 +61,7 @@ public class GestionOServicio {
 		
 	}
 	
-	public int crearODS(int tar, String anot) {
+	public int crearODS(String ter, int tar, String anot) {
 				
 		TareaTipo t = new TareaTipo();
 		t.setId(tar);		
@@ -68,10 +70,24 @@ public class GestionOServicio {
 		OrdendeServicio os = new OrdendeServicio(anot, t );
 		os.setAnotaciones(anot);
 		
+		Usuario usu = obtenerUsuarioLog(ter);
+		os.setUsuarioAlta(usu);
+		
 		// persiste os
 		HibernateDAO.getInstancia().persistir(os);
 		
 		return os.getId();
+	}
+
+	private Usuario obtenerUsuarioLog(String ter) {
+		
+		String sql = "select s from Sesion as s where "
+				+ " s.fecha >= (select max(s2.fecha) from Sesion as s2 where s2.terminal.ter = :term)"
+				+ " and s.terminal.ter = :term";
+		List<Sesion> ls = (List<Sesion>) HibernateDAO.getInstancia().parametros(sql, "term", ter);
+		
+		return ls.get(0).getUsuario();
+		
 	}
 
 	public void asignarEspacioODS(int idOds, String calle, String chapa) {
@@ -161,12 +177,17 @@ public class GestionOServicio {
 	}
 
 	private List<Usuario> buscaTecnicosPend(){
-		//		String sql = "from usuario tec where tec.id <> some (select tecnico from reclamo where estado <> :recest"; 
-		//List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().parametros(sql, "recest", String.valueOf(Reclamo.est.abierto));
+		// busca un tecnico q no esté en algun reclamo abierto
+		String sql = "from Usuario as tec "
+				+ " where tec.id not in(select rec.tecnico.id "
+				+ " 					from Reclamo as rec "
+				+ "  					where rec.Estado = :recest)";
+				 
+		List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().parametObj(sql, "recest", Reclamo.est.abierto ) ;
 		
-		String sql = "from Usuario"; 
-		List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().getlista(sql);
-		
+//		String sql = "from Usuario"; 
+//		List<Usuario> lt = (List<Usuario>) HibernateDAO.getInstancia().getlista(sql);
+
 		return lt;
 	}
 

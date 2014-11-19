@@ -46,6 +46,11 @@ public class HibernateDAO {
 		return ses.createQuery(sql).setParameterList(prm2, funcs).setParameter(prm, sx).list();
 		
 	}
+	public List<?> parametObj(String query, String prmName, Object prm) {
+		Session session = getSession();
+		List<?> lista = session.createQuery(query).setParameter(prmName, prm).list();
+		return lista;
+	 }
 	public List<?> parametros(String query, String prmName, String prm) {
 		Session session = getSession();
 		List<?> lista = session.createQuery(query).setParameter(prmName, prm).list();

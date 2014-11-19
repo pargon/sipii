@@ -29,8 +29,10 @@ public class AltaODS extends HttpServlet{
 			throws ServletException, IOException {
 
 		GestionOServicio gs = new GestionOServicio();
+		String ter = req.getRemoteHost();
 		
-		int idODS = gs.crearODS( Integer.parseInt( req.getParameter("tarea")),
+		int idODS = gs.crearODS(ter,
+					Integer.parseInt( req.getParameter("tarea")),
 					req.getParameter("anot"));
 		
 	    req.setAttribute("idODS", idODS);

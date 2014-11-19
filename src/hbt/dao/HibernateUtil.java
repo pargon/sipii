@@ -21,6 +21,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import controlador.GestionOServicio;
 import controlador.Sesion;
+import controlador.Terminal;
 
 
 
@@ -46,6 +47,7 @@ public class HibernateUtil
 			config.addAnnotatedClass(TareaTipo.class);
 			config.addAnnotatedClass(Usuario.class);
 			config.addAnnotatedClass(Sesion.class);
+			config.addAnnotatedClass(Terminal.class);
 			
 			sessionFactory = config.buildSessionFactory();
 		}

@@ -39,7 +39,7 @@ public class AltaReclamo extends HttpServlet{
 				req.getParameter("desc"));
 		
 	    req.setAttribute("idRec", idRec);
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/rec.jsp");
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("/rec.jsp");
 	    dispatcher.forward(req, resp);
 
 	}
