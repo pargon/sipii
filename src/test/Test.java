@@ -117,13 +117,17 @@ public class Test {
 		gs.asignarMantODS(idOds, man.getId());
 //		gs.asignarTecODS(idOds, tec);
 		*/
-		
+	
 		//Gestion Espacio
 		ca = new Calle("calle 1", 1, 1000);
 		cuad = new Cuadra(ca, 1, 100, 10, Cuadra.UsoSuelo.baldio, Cuadra.TipoEdificacion.media);
 		HibernateDAO.getInstancia().persistir(cuad);
+		
+		esp = new Especie("arbol corriente", "arbol cient 1");
+		HibernateDAO.getInstancia().persistir(esp);
+		
 		ge = new GestionEspacio();
-		ge.crearEspacio2("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+		ge.crearEspacio2("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true,1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
 				"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
 				true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
 	
@@ -137,11 +141,14 @@ public class Test {
 						+ " N: "
 						+itEsp.getChapaCatastral()
 						+ " Estado: "
-						+itEsp.getEst());
-		
+						+itEsp.getEst()
+						+ " Arbol: "
+						+itEsp.getArbol());
 		System.out.println("alta de datos");
-		/*
-		ge.modificarEspacio("Calle 1","2350");
+		
+		System.out.println("MODIFICAR");
+		ge.modificarEspacio("Calle 1","300","Ascendente","","",0,0,"Arbol",false,0);
+		
 		System.out.println("Lista Espacios");
 		List<Espacio> espge1 = ge.buscarEspacioTodos();
 		for(Espacio itEsp: espge1)
@@ -157,7 +164,7 @@ public class Test {
 						+itEsp.getTipo()					
 						+ " Estado: "
 						+itEsp.getEst());
-		*/
+		
 	}
 }
 
