@@ -3,8 +3,10 @@ package controlador;
 
 import hbt.dao.HibernateDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import Beans.bEspacio;
 import negocio.Copa;
 import negocio.Copa.ColorFollaje;
 import negocio.Copa.DensidadFollaje;
@@ -345,5 +347,22 @@ public class GestionEspacio {
 				}
 				return e.getId();
 				}	
-	
+
+	public List<bEspacio> buscarEspacioXEstado(){
+		String sql = "from Espacio order by estado desc";
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
+		
+		List<bEspacio> lbe = new ArrayList<>();
+		for(Espacio es: le){
+			bEspacio be = new bEspacio(
+					es.getId(),
+					es.getTipo().toString(),
+					es.getCuadra().getCalle().getNombre(),
+					es.getChapaCatastral(),
+					es.getEst().toString());
+			
+			lbe.add(be);
+		}
+		return lbe;
+	}
 }
