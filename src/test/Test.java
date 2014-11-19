@@ -2,6 +2,7 @@ package test;
 
 
 import java.util.List;
+import java.lang.*;
 
 import controlador.GestionOServicio;
 import controlador.GestionEspacio;
@@ -33,7 +34,7 @@ public class Test {
 		HibernateDAO.getInstancia().persistir(c);
 	}
 
-	private static void AltaDatos() {
+	private static void AltaDatos(Integer String) {
 		  
 		Copa co;
 		Tronco tr;
@@ -42,7 +43,6 @@ public class Test {
 		Calle ca;
 		Cuadra cuad;
 		Espacio es;
-		Arbol ar;
 		Especie esp;
 		
 		Mantenimiento man;
@@ -123,14 +123,26 @@ public class Test {
 		cuad = new Cuadra(ca, 1, 100, 10, Cuadra.UsoSuelo.baldio, Cuadra.TipoEdificacion.media);
 		HibernateDAO.getInstancia().persistir(cuad);
 		
+		
 		esp = new Especie("arbol corriente", "arbol cient 1");
 		HibernateDAO.getInstancia().persistir(esp);
 		
 		ge = new GestionEspacio();
-		ge.crearEspacio2("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true,1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
-				"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
-				true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
-	
+		int idEspacio = ge.crearEspacio("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true);
+		
+		Espacio e = new Espacio();
+		e.setId(idEspacio);
+		e= (Espacio) HibernateDAO.getInstancia().get(Espacio.class, e.getId());
+		
+		if (e.getTipo().toString()=="Arbol"){
+			int idArbol = ge.crearArbol(1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+					"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
+					true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
+			ge.asignarArbolEspacio(idArbol, idEspacio);
+		
+		
+		}
+		
 		System.out.println("Lista Espacios");
 		List<Espacio> espge = ge.buscarEspacioTodos();
 		for(Espacio itEsp: espge)
@@ -140,15 +152,45 @@ public class Test {
 						+itEsp.getCuadra().getCalle().getNombre() 
 						+ " N: "
 						+itEsp.getChapaCatastral()
+						+ " TipoCatastral: "
+						+itEsp.getTipoCat()						
 						+ " Estado: "
 						+itEsp.getEst()
 						+ " Arbol: "
-						+itEsp.getArbol());
+						+itEsp.getArbol().getEspecie().getNombreCientifico().toString());
 		System.out.println("alta de datos");
 		
-		System.out.println("MODIFICAR");
-		ge.modificarEspacio("Calle 1","300","Ascendente","","",0,0,"Arbol",false,0);
 		
+		System.out.println("MODIFICAR");
+		
+		int idEspacioM = ge.modificarEspacio("Calle 1","300","Ascendente","","",0,0,"Arbol",false);
+		
+		Espacio eM = new Espacio();
+		eM.setId(idEspacio);
+		eM= (Espacio) HibernateDAO.getInstancia().get(Espacio.class, eM.getId());
+		
+		if (eM.getTipo().toString()=="Arbol"){
+			if(eM.getArbol()==null){
+					int idArbolM = ge.crearArbol(1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+					"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
+					true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
+					ge.asignarArbolEspacio(idArbolM, idEspacioM);
+				}else
+				{
+					int ab = eM.getArbol().getId();
+					String starbol = Integer.toString(ab);
+					int idArbolM = ge.modificarArbol(starbol,1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+							"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
+							true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
+							
+			}
+		
+		
+		/*
+		,0,true,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+				"Chica","Chica","Chica",true,false,true,false,false,true,false,false,"Anillos","Vereda",true,true,
+				true,true,true,true,true,true,true,true,true,true,"Agujeros","Vereda");
+		*/
 		System.out.println("Lista Espacios");
 		List<Espacio> espge1 = ge.buscarEspacioTodos();
 		for(Espacio itEsp: espge1)
@@ -160,6 +202,8 @@ public class Test {
 						+itEsp.getChapaCatastral()
 						+ " TipoCatastral: "
 						+itEsp.getTipoCat()
+						+ " Esta Seco: "
+						+itEsp.getArbol().isSeco()	
 						+ " Tipo: "
 						+itEsp.getTipo()					
 						+ " Estado: "

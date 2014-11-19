@@ -128,7 +128,7 @@ public class Espacio extends PersistentObject{
 	public Espacio(String chapaCatastral, TipoCatastral tipoCat,
 			Cuadra cuadra, String latitud, String longitud,
 			float anchoPlantera, float largoPlantera, Tipo tipo,
-			boolean canteroElevado, Arbol arbol) {
+			boolean canteroElevado) {
 		super();
 		
 		this.chapaCatastral = chapaCatastral;
@@ -140,7 +140,8 @@ public class Espacio extends PersistentObject{
 		this.largoPlantera = largoPlantera;
 		this.tipo = tipo;
 		this.canteroElevado = canteroElevado;
-		this.arbol = arbol;
+		this.arbol = null;
+		this.estado = estado.A;
 	}
 	public Espacio() {
 		super();
