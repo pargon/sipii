@@ -33,7 +33,7 @@ public class AsignaODSReclamo extends HttpServlet{
 		gs.asignarReclamoODS( Integer.parseInt(req.getParameter("idODS")), 
 							Integer.parseInt(req.getParameter("idRec")));
 		
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/index.jsp");
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
 	    dispatcher.forward(req, resp);
 
 	}

@@ -2,8 +2,10 @@ package controlador;
 
 import hbt.dao.HibernateDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import Beans.bEspacio;
 import negocio.Copa;
 import negocio.Copa.ColorFollaje;
 import negocio.Copa.DensidadFollaje;
@@ -33,6 +35,12 @@ public class GestionEspacio {
 	
 	private Estado estado;
 			
+	public GestionEspacio() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public void crearEspacio2(String dir,String chapaCat, String tipoCat,String lat, String longi,
 			float anchoP, float largoP, String tipo, boolean canteroE, boolean ar_s, String ar_alt,int ar_est, float ar_per,String ar_incl,String ar_ori,String co_dF, String co_cF, String co_Est,String tr_cB, String tr_cM, String tr_cA, boolean tr_co ,boolean tr_ab,
 			boolean tr_desg,boolean tr_desc,boolean tr_raj,boolean tr_fr,boolean tr_ch,boolean tr_en,String tr_dest,String tr_interf, boolean ra_co,boolean ra_cr,
@@ -43,7 +51,6 @@ public class GestionEspacio {
 				TipoCatastral tC = TipoCatastral.valueOf(tipoCat);
 				Tipo ti = Tipo.valueOf(tipo);
 				Cuadra c = new Cuadra();
-				c.setId(cua);
 				c = (Cuadra) HibernateDAO.getInstancia().get(Cuadra.class, c.getId());
 				Arbol ar = crearArbol(ar_s, ar_alt, ar_est, ar_per, ar_incl, ar_ori, co_dF, co_cF, co_Est, tr_cB, tr_cM, tr_cA,tr_co , tr_ab,
 						 tr_desg, tr_desc, tr_raj, tr_fr, tr_ch, tr_en, tr_dest, tr_interf, ra_co, ra_cr,
@@ -178,6 +185,22 @@ public class GestionEspacio {
 		
 		return k;
 	}
-	
-	
+
+	public List<bEspacio> buscarEspacioXEstado(){
+		String sql = "from Espacio order by estado desc";
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
+		
+		List<bEspacio> lbe = new ArrayList<>();
+		for(Espacio es: le){
+			bEspacio be = new bEspacio(
+					es.getId(),
+					es.getTipo().toString(),
+					es.getCuadra().getCalle().getNombre(),
+					es.getChapaCatastral(),
+					es.getEst().toString());
+			
+			lbe.add(be);
+		}
+		return lbe;
+	}
 }

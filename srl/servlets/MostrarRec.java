@@ -27,7 +27,7 @@ public class MostrarRec extends HttpServlet{
 			throws ServletException, IOException {
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				"/jsp/mostrar_rec.jsp");
+				"/mostrar_rec.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -41,7 +41,7 @@ public class MostrarRec extends HttpServlet{
 		
 		req.setAttribute("Recs", bfs);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				"/jsp/mostrar_rec.jsp");
+				"/mostrar_rec.jsp");
 		rd.forward(req, resp);
 
 	}

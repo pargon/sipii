@@ -34,24 +34,27 @@ public class Login extends HttpServlet{
 
 		String user = req.getParameter("user");
 		String pass = req.getParameter("pass");
-		
+		String ter = req.getRemoteHost();
 		
 		if(gu.usuarioExiste(user))
 			if(gu.usuarioContrOk(user, pass))
 			{
-			    RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/index.jsp");
+				// alta de sesion
+				gu.crearSesion(user, ter);
+				
+			    RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
 			    dispatcher.forward(req, resp);
 			}
 			else
 			{
 			    req.setAttribute("mensaje", "Contraseña incorrecta");
-			    RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/login.jsp");
+			    RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
 			    dispatcher.forward(req, resp);
 			}
 		else
 		{
 		    req.setAttribute("mensaje", "Usuario "+ user + " inexistente");
-		    RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/login.jsp");
+		    RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
 		    dispatcher.forward(req, resp);
 		}
 	}

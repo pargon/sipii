@@ -34,7 +34,7 @@ public class AltaODS extends HttpServlet{
 					req.getParameter("anot"));
 		
 	    req.setAttribute("idODS", idODS);
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/ods.jsp");
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("/ods.jsp");
 	    dispatcher.forward(req, resp);
 
 	}

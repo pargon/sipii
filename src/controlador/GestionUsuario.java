@@ -1,5 +1,6 @@
 package controlador;
 
+import java.util.Date;
 import java.util.List;
 
 import negocio.Usuario;
@@ -20,5 +21,15 @@ public class GestionUsuario {
 		
 		Usuario u = lu.get(0); 
 		return (pass.equals(u.getClave()));
+	}
+	
+	public void crearSesion(String user, String ter){
+		String sql = "from Usuario where nombreUsuario = :usu";
+		List<Usuario> lu = (List<Usuario>) HibernateDAO.getInstancia().parametros(sql, "usu", user) ;
+
+		Usuario u = lu.get(0); 
+		Sesion ses = new Sesion(new Date(), u, ter);
+		
+		HibernateDAO.getInstancia().persistir(ses);
 	}
 }

@@ -33,7 +33,7 @@ public class AsignaODSMantenimiento extends HttpServlet{
 		gs.asignarMantODS(Integer.parseInt(req.getParameter("idODS")), 
 							Integer.parseInt(req.getParameter("idMan")));
 		
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/index.jsp");
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
 	    dispatcher.forward(req, resp);
 
 	}

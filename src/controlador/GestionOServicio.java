@@ -21,8 +21,7 @@ import negocio.Usuario;
 public class GestionOServicio {
 
 	
-	public int crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc, String [] algo){
-		System.out.println("valor bool:" + algo[0] + algo[1]  );
+	public int crearReclamo(String dni, String nom, String ape, String dir, String tel, String mail, String desc){
 		
 		Ciudadano ciu = buscarCiudadano(dni);
 		if (ciu == null )
@@ -40,6 +39,7 @@ public class GestionOServicio {
 		}
 		
 		rec.setM_Fecha(new Date());
+		rec.setDiasVto(60);
 		
 		// persiste reclamo 
 		HibernateDAO.getInstancia().persistir(rec);
@@ -56,13 +56,6 @@ public class GestionOServicio {
 		for (Espacio e: le)
 			return e;
 		return null;
-		
-	}
-	
-	public List<Espacio> buscarEspacioXEstado(){
-		String sql = "from Espacio order by estado desc";
-		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().getlista(sql);
-		return le;
 		
 	}
 	

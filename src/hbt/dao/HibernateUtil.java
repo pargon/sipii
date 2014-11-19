@@ -20,6 +20,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import controlador.GestionOServicio;
+import controlador.Sesion;
 
 
 
@@ -44,6 +45,7 @@ public class HibernateUtil
 			config.addAnnotatedClass(Reclamo.class);
 			config.addAnnotatedClass(TareaTipo.class);
 			config.addAnnotatedClass(Usuario.class);
+			config.addAnnotatedClass(Sesion.class);
 			
 			sessionFactory = config.buildSessionFactory();
 		}

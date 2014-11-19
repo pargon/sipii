@@ -35,7 +35,7 @@ public class AltaEspacio extends HttpServlet{
 	
 		
 //	    req.setAttribute("idODS", idODS);
-	    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/ods.jsp");
+	    RequestDispatcher dispatcher = req.getRequestDispatcher("/ods.jsp");
 	    dispatcher.forward(req, resp);
 
 	}

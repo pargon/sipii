@@ -26,7 +26,7 @@ public class MostrarODS extends HttpServlet{
 			throws ServletException, IOException {
 
 		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/mostrar_ods.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/mostrar_ods.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -39,8 +39,7 @@ public class MostrarODS extends HttpServlet{
 		List<bOrdendeServicio> bfs = (List<bOrdendeServicio>)gs.mostrarODS();
 		
 		req.setAttribute("ODSs", bfs);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				"/jsp/mostrar_ods.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/mostrar_ods.jsp");
 		rd.forward(req, resp);
 
 	}
