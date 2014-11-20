@@ -2,7 +2,6 @@ package test;
 
 
 import java.util.List;
-import java.lang.*;
 
 import controlador.GestionOServicio;
 import controlador.GestionEspacio;
@@ -34,7 +33,7 @@ public class Test {
 		HibernateDAO.getInstancia().persistir(c);
 	}
 
-	private static void AltaDatos(Integer String) {
+	private static void AltaDatos() {
 		  
 		Copa co;
 		Tronco tr;
@@ -128,86 +127,79 @@ public class Test {
 		HibernateDAO.getInstancia().persistir(esp);
 		
 		ge = new GestionEspacio();
-		int idEspacio = ge.crearEspacio("Calle 1", "300", "Normal",1,"20","21",4,4,"Arbol",true);
+		int idEspacio = ge.crearEspacio("Calle 1", "300", "Normal","20","21",4,4,"Arbol",true);
 		
 		Espacio e = new Espacio();
 		e.setId(idEspacio);
 		e= (Espacio) HibernateDAO.getInstancia().get(Espacio.class, e.getId());
+		String []atributos = {"tr_ab"};
 		
 		if (e.getTipo().toString()=="Arbol"){
-			int idArbol = ge.crearArbol(1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
-					"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
-					true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
+			int idArbol = ge.crearArbol(1,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
+					"Chica","Chica","Chica","Anillos","Vereda","Quemaduras","Cantera", atributos);
 			ge.asignarArbolEspacio(idArbol, idEspacio);
-		
-		
+		}else{
+			int idArbol = ge.crearArbol();
+			ge.asignarArbolEspacio(idArbol, idEspacio);
 		}
+		
+		
+		
 		
 		System.out.println("Lista Espacios");
 		List<Espacio> espge = ge.buscarEspacioTodos();
 		for(Espacio itEsp: espge)
 			System.out.println("espacio: " 
 						+itEsp.getId() 
-						+" en: " 
-						+itEsp.getCuadra().getCalle().getNombre() 
 						+ " N: "
 						+itEsp.getChapaCatastral()
 						+ " TipoCatastral: "
 						+itEsp.getTipoCat()						
 						+ " Estado: "
-						+itEsp.getEst()
-						+ " Arbol: "
-						+itEsp.getArbol().getEspecie().getNombreCientifico().toString());
+						+itEsp.getArbol().getIncl()
+						+ " Tipo: "
+						+itEsp.getTipo()
+						+ " Bolean abul: "
+						+itEsp.getArbol().getTronco().isAbultamientos()
+						+ " Bolean cruz: "
+						+itEsp.getArbol().getRama().isCruzadas());
+						
+								
+						
 		System.out.println("alta de datos");
 		
+		Espacio eM =  ge.buscarEspacio("Calle 1","300");
 		
-		System.out.println("MODIFICAR");
-		
-		int idEspacioM = ge.modificarEspacio("Calle 1","300","Ascendente","","",0,0,"Arbol",false);
-		
-		Espacio eM = new Espacio();
-		eM.setId(idEspacio);
-		eM= (Espacio) HibernateDAO.getInstancia().get(Espacio.class, eM.getId());
-		
-		if (eM.getTipo().toString()=="Arbol"){
-			if(eM.getArbol()==null){
-					int idArbolM = ge.crearArbol(1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
-					"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
-					true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
-					ge.asignarArbolEspacio(idArbolM, idEspacioM);
-				}else
-				{
-					int ab = eM.getArbol().getId();
-					String starbol = Integer.toString(ab);
-					int idArbolM = ge.modificarArbol(starbol,1,false,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
-							"Chica","Chica","Chica",false,false,false,false,false,false,false,false,"Anillos","Vereda",true,true,
-							true,true,true,true,true,true,true,true,true,true,"Quemaduras","Cantera");
-							
+		//mostrar
+		if (eM!=null){
+				String []atributos2= {"tr_ab","ra_cr"};
+				ge.modificarEspacio3("Calle 1", "300","Arbol","2", 1, 1, "mas45","NA", "Normal", "Normal", "Equilibrada",
+						"Chica", "Chica","Chica", "Anillos", "Vereda", "Quemaduras","Cantera",atributos2);
+			}else{
+				System.out.println("No Existe el Espacio");
 			}
 		
+	
 		
-		/*
-		,0,true,"2",1,4,"NA","NA","Normal", "Normal","Equilibrada",
-				"Chica","Chica","Chica",true,false,true,false,false,true,false,false,"Anillos","Vereda",true,true,
-				true,true,true,true,true,true,true,true,true,true,"Agujeros","Vereda");
-		*/
 		System.out.println("Lista Espacios");
-		List<Espacio> espge1 = ge.buscarEspacioTodos();
-		for(Espacio itEsp: espge1)
+		List<Espacio> espge2 = ge.buscarEspacioTodos();
+		for(Espacio itEsp: espge2)
 			System.out.println("espacio: " 
 						+itEsp.getId() 
-						+" en: " 
-						+itEsp.getCuadra().getCalle().getNombre() 
 						+ " N: "
 						+itEsp.getChapaCatastral()
 						+ " TipoCatastral: "
-						+itEsp.getTipoCat()
-						+ " Esta Seco: "
-						+itEsp.getArbol().isSeco()	
-						+ " Tipo: "
-						+itEsp.getTipo()					
+						+itEsp.getTipoCat()						
 						+ " Estado: "
-						+itEsp.getEst());
+						+itEsp.getArbol().getIncl()
+						+ " Tipo: "
+						+itEsp.getTipo()
+						+ " Bolean abul: "
+						+itEsp.getArbol().getTronco().isAbultamientos()
+						+ " Bolean cruz: "
+						+itEsp.getArbol().getRama().isCruzadas()
+						);
+				
 		
 	}
 }

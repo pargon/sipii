@@ -343,6 +343,127 @@ public class GestionEspacio {
 		}
 		
 	}
+	public void modificarEspacio3(String dir,String chapaCat,String e_t,String ar_alt,int ar_est, float ar_per,String ar_incl,
+			String ar_ori,String co_dF, String co_cF, String co_Est,String tr_cB, String tr_cM, String tr_cA,
+			String tr_dest,String tr_interf, String ra_dest, String ra_interf, String []atributos){
+		
+		boolean ar_s =false;
+		boolean tr_co = false;
+		boolean tr_ab =false;
+		boolean tr_desg=false;
+		boolean tr_desc=false;
+		boolean tr_raj=false;
+		boolean tr_fr=false;
+		boolean tr_ch=false;
+		boolean tr_en=false;
+		boolean ra_co=false;
+		boolean ra_cr=false;
+		boolean ra_mI=false;
+		boolean ra_s=false;
+		boolean ra_mR=false;
+		boolean ra_f=false;
+		boolean ra_c=false;
+		boolean ra_ex=false;
+	    boolean ra_b=false;
+	    boolean ra_ep=false;
+	    boolean ra_fr=false;
+	    boolean ra_t=false;
+		
+				
+		for( String att: atributos){
+			 if( att.equals("ar_s"))
+				 ar_s = true;
+			 if(att.equals("tr_co"))
+				 tr_co = true;
+			 if(att.equals("tr_ab"))
+				 tr_ab= true;
+			 if(att.equals("tr_desg"))
+				 tr_desg= true;
+			 if(att.equals("tr_desc"))
+				 tr_desc= true;
+			 if(att.equals("tr_raj"))
+				 tr_raj= true;
+			 if(att.equals("tr_fr"))
+				 tr_fr= true;
+			 if(att.equals("tr_ch"))
+				 tr_ch= true;
+			 if(att.equals("tr_en"))
+				 tr_en = true;
+			 if(att.equals("ra_co"))
+				 ra_co= true;
+			 if(att.equals("ra_cr"))
+				 ra_cr= true;
+			 if(att.equals("ra_mI"))
+				 ra_mI= true;
+			 if(att.equals("ra_s"))
+				 ra_s= true;
+			 if(att.equals("ra_mR"))
+				 ra_mR= true;
+			 if(att.equals("ra_f"))
+				 ra_f= true;
+			 if(att.equals("ra_c"))
+				 ra_c= true;
+			 if(att.equals("ra_ex"))
+				 ra_ex= true;	
+			 if(att.equals("ra_b"))
+				 ra_b= true;
+			 if(att.equals("ra_ep"))
+				 ra_ep= true;
+			 if(att.equals("ra_fr"))
+				 ra_fr= true;
+			 if(att.equals("ra_t"))
+				 ra_t= true;
+		}
+		
+		Espacio e = buscarEspacio(dir,chapaCat);
+		e= (Espacio) HibernateDAO.getInstancia().get(Espacio.class, e.getId());
+		
+				Tipo ti = Tipo.valueOf(e_t);
+							
+				e.setTipo(ti);
+				e.getArbol().setPerimetro(ar_per);
+				e.getArbol().setAltura(ar_alt);
+				e.getArbol().setEstado(ar_est);
+				e.getArbol().setPerimetro(ar_per);
+				Inclinacion incl = Inclinacion.valueOf(ar_incl);
+				Orientacion ori = Orientacion.valueOf(ar_ori);
+				e.getArbol().setIncl(incl);
+				e.getArbol().setOrient(ori);
+				DensidadFollaje dF = DensidadFollaje.valueOf(co_dF);
+				ColorFollaje cF = ColorFollaje.valueOf(co_cF);		
+				EstadoCopa est = EstadoCopa.valueOf(co_Est);
+				e.getArbol().getCopa().setDf(dF);
+				e.getArbol().getCopa().setCf(cF);
+				e.getArbol().getCopa().setEstadoCopa(est);
+				CavidadBasal cB = CavidadBasal.valueOf(tr_cB);
+				CavidadMedia cM = CavidadMedia.valueOf(tr_cM);
+				CavidadAlta cA = CavidadAlta.valueOf(tr_cA);
+				e.getArbol().getTronco().setCb(cB);
+				e.getArbol().getTronco().setCm(cM);;
+				e.getArbol().getTronco().setCa(cA);
+				Destrucciones dest = Destrucciones.valueOf(tr_dest);
+				Interferencia interf = Interferencia.valueOf(tr_interf);
+				e.getArbol().getTronco().setDest(dest);
+				e.getArbol().getTronco().setInterf(interf);
+				DestruccionesRama r_dest = DestruccionesRama.valueOf(ra_dest);
+				InterferenciaRama r_interf = InterferenciaRama.valueOf(ra_interf);
+				e.getArbol().getRama().setDest(r_dest);
+				e.getArbol().getRama().setInterf(r_interf);
+				
+				int k = calcularEstado(e.getArbol());
+				if ((k>0)&&(k<6)){	
+					e.setEst(estado.B);	
+				}else
+					if (k>=6){
+						e.setEst(estado.C);		
+					}else{
+						e.setEst(estado.A);
+						}
+	
+				HibernateDAO.getInstancia().update(e);
+			}
+			
+	
 	
 	public Espacio buscarEspacio(String dir, String chapa){
 		String sql = "select e from Espacio e join e.cuadra c join c.calle d "
@@ -355,6 +476,7 @@ public class GestionEspacio {
 		return null;
 		
 	}
+	
 
 	public List<Especie> buscarEspecie(){
 		String sql = "from Especie";
@@ -391,17 +513,17 @@ public class GestionEspacio {
 		return k;
 	}
 	
-	public int crearEspacio(String dir,String chapaCat, String tipoCat,int cua, String lat, String longi,
+	public int crearEspacio(String dir,String chapaCat, String tipoCat, String lat, String longi,
 			float anchoP, float largoP, String tipo, boolean canteroE)
 			{
 				Espacio e = buscarEspacio(dir,chapaCat);
 				if(e==null){
 				TipoCatastral tC = TipoCatastral.valueOf(tipoCat);
 				Tipo ti = Tipo.valueOf(tipo);
-				
-				Cuadra c = new Cuadra();
-				c.setId(cua);
-				c = (Cuadra) HibernateDAO.getInstancia().get(Cuadra.class, c.getId());
+				Cuadra c = buscaCuadra(dir, chapaCat);
+				//Cuadra c = new Cuadra();
+				//c.setId(cua);
+				//c = (Cuadra) HibernateDAO.getInstancia().get(Cuadra.class, c.getId());
 				e = new Espacio(chapaCat, tC, c,lat, longi,anchoP,largoP,ti,canteroE);
 				
 				HibernateDAO.getInstancia().persistir(e);
@@ -431,4 +553,23 @@ public class GestionEspacio {
 		}
 		return lbe;
 	}
+
+	public int crearArbol() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private Cuadra buscaCuadra(String dir, String chapaCat) {
+        String sql = "select cua "
+                        + " from Cuadra as cua "
+                        + " join cua.calle as cal "
+                        + " where cal.nombre =:calle "
+                        + " and cua.alturaDesde <= :chapa "
+                        + " and cua.alturaHasta >= :chapa "        ;
+        List<Cuadra> lc = (List<Cuadra>) HibernateDAO.getInstancia().parametros2(sql, "calle", dir, "chapa", Integer.valueOf(chapaCat));
+        
+        for(Cuadra c: lc)
+                return c;
+        return null;
+}
 }
