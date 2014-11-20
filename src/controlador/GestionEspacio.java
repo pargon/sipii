@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Beans.bEspacio;
+import Beans.bOrdendeServicio;
+import Beans.bReclamo;
 import negocio.Copa;
 import negocio.Copa.ColorFollaje;
 import negocio.Copa.DensidadFollaje;
 import negocio.Copa.EstadoCopa;
 import negocio.Cuadra;
 import negocio.Espacio;
+import negocio.Mantenimiento;
 import negocio.OrdendeServicio;
 import negocio.Rama;
+import negocio.Reclamo;
 import negocio.Rama.DestruccionesRama;
 import negocio.Rama.InterferenciaRama;
 import negocio.Tronco;
@@ -410,5 +414,99 @@ public class GestionEspacio {
         for(Cuadra c: lc)
                 return c;
         return null;
+         
 }
+	
+	public bEspacio buscarBEspacio(String dir, String chapa){
+		String sql = "select e from Espacio e join e.cuadra c join c.calle d "
+				+ " where e.chapaCatastral = :chap "
+				+ " and d.nombre = :dir";
+		@SuppressWarnings("unchecked")
+		List<Espacio> le = (List<Espacio>) HibernateDAO.getInstancia().parametros2(sql, "chap", chapa, "dir", dir);
+		
+		
+		for (Espacio e: le){
+			bEspacio be =new bEspacio(e.getId(),
+					e.getTipo(),
+					e.getCuadra().getCalle(),	
+					e.getChapaCatastral(),
+					e.getEst(), 
+					e.getTipoCat(),
+					e.getCuadra().getId(),
+					e.getLatitud(),
+					e.getLongitud(),
+					e.getAnchoPlantera(), 
+					e.getLargoPlantera(),
+					e.isCanteroElevado(),
+					e.getArbol().getEspecie(),
+					e.getArbol().getAltura(),
+					e.getArbol().getEstado(),
+					e.getArbol().getPerimetro(),
+					e.getArbol().getIncl(),
+					e.getArbol().getOrient(),
+					e.getArbol().getCopa().getDf(),
+					e.getArbol().getCopa().getCf(),
+					e.getArbol().getCopa().getEstado(),
+					e.getArbol().getTronco().getCb(),
+					e.getArbol().getTronco().getCm(),
+					e.getArbol().getTronco().getCa(),
+					e.getArbol().getTronco().getDest(),
+					e.getArbol().getTronco().getInterf(),
+					e.getArbol().getRama().getDest(),
+					e.getArbol().getRama().getInterf(),
+					e.getArbol().isSeco(),
+					e.getArbol().getTronco().isCodominancia(),
+					e.getArbol().getTronco().isAbultamientos(),
+					e.getArbol().getTronco().isDesgarrado(),
+					e.getArbol().getTronco().isDescortezamiento(),
+					e.getArbol().getTronco().isRajaduras(),
+					e.getArbol().getTronco().isFructificaciones(),
+					e.getArbol().getTronco().isChorreados(),
+					e.getArbol().getTronco().isEnredadera(),
+					e.getArbol().getRama().isCorteza(),
+					e.getArbol().getRama().isCruzadas(),
+					e.getArbol().getRama().isMalInsertadas(),
+					e.getArbol().getRama().isSecas(),
+					e.getArbol().getRama().isMuerteRegresiva(),
+					e.getArbol().getRama().isFisuradas(),
+					e.getArbol().getRama().isCavidades(),
+					e.getArbol().getRama().isExcesivas(),
+					e.getArbol().getRama().isBajas(),
+					e.getArbol().getRama().isEpifitas(),
+					e.getArbol().getRama().isFructificaciones(),
+					e.getArbol().getTronco().isRajaduras());	
+					}
+					
+		return be;
+		
+		
+	}
+	
+	public List<bReclamo> mostrarRec() {
+		List<bReclamo> lbo = new ArrayList<>();
+		
+		List<Reclamo> los = (List<Reclamo>) HibernateDAO.getInstancia().getlista("from Reclamo") ;
+			
+		for(Reclamo os:los){
+			OrdendeServicio ods = os.getM_OrdendeServicio();
+			
+			Usuario tec = os.getTecnico();
+					ntec = tec.getNombreComp();
+			
+			bReclamo bos = new bReclamo(					
+					os.getId(),
+					os.getEstado().toString() ,
+					os.getCiudadano().getDni(),
+					os.getCiudadano().getNombre() + " " + os.getCiudadano().getApellido(),
+					os.getDesc(),
+					os.getM_Fecha(), 
+					idODS,
+					ntec,
+					os.getDiasVto() );
+			lbo.add(bos);
+		}
+		return lbo;
+	}
+
+
 }
