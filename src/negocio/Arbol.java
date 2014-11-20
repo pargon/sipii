@@ -120,8 +120,10 @@ public class Arbol extends PersistentObject{
 		this.orient = orient;
 	}
 	public Arbol() {
-		super();
-		// TODO Auto-generated constructor stub
+		especie = new Especie();
+		copa = new Copa();
+		tronco = new Tronco();
+		rama = new Rama();
 	}
 	
 

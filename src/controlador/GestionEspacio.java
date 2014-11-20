@@ -393,7 +393,9 @@ public class GestionEspacio {
 
 	public int crearArbol() {
 		// TODO Auto-generated method stub
-		return 0;
+		Arbol a = new Arbol();
+		HibernateDAO.getInstancia().persistir(a);
+		return a.getId();
 	}
 
 	private Cuadra buscaCuadra(String dir, String chapaCat) {
