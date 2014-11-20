@@ -56,7 +56,7 @@ public class HibernateDAO {
 		List<?> lista = session.createQuery(query).setParameter(prmName, prm).list();
 		return lista;
 	}
-	public List<?> parametros2(String query, String prmName1, String prm1, String prmName2, String prm2) {
+	public List<?> parametros2(String query, String prmName1, Object prm1, String prmName2, Object prm2) {
 		Session session = getSession();
 		List<?> lista = session.createQuery(query).setParameter(prmName1, prm1).setParameter(prmName2, prm2).list();
 		return lista;
