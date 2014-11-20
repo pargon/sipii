@@ -4,6 +4,7 @@ package servlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,14 @@ public class Login extends HttpServlet{
 	public Login() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		
+		getServletContext().setAttribute("p1", "este es el p1");
+		
 	}
 
 	@Override

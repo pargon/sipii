@@ -39,10 +39,39 @@ public class GestionEspacio {
 	private Estado estado;
 			
 	
-	public int crearArbol(int esp,boolean ar_s, String ar_alt,int ar_est, float ar_per,String ar_incl,String ar_ori,String co_dF, String co_cF, String co_Est,String tr_cB, String tr_cM, String tr_cA, boolean tr_co ,boolean tr_ab,
-			boolean tr_desg,boolean tr_desc,boolean tr_raj,boolean tr_fr,boolean tr_ch,boolean tr_en,String tr_dest,String tr_interf, boolean ra_co,boolean ra_cr,
-			boolean ra_mI,boolean ra_s,boolean ra_mR,boolean ra_f,boolean ra_c,boolean ra_ex,boolean ra_b,boolean ra_ep,
-			boolean ra_fr,boolean ra_t, String ra_dest, String ra_interf){
+	public int crearArbol(String aaa, String bbb, String nomeacuerdo, String [] Atributos){
+		
+		
+		boolean ar_s= false;
+		boolean tr_co= false;
+boolean tr_ab= false;
+boolean tr_desg= false;
+boolean tr_desc= false;
+boolean tr_raj= false;
+boolean tr_fr= false;
+boolean tr_ch= false;
+boolean tr_en= false;
+boolean ra_co= false;
+boolean ra_cr= false;
+boolean ra_mI= false;
+boolean ra_s= false;
+boolean ra_mR= false;
+boolean ra_f= false;
+boolean ra_c= false;
+boolean ra_ex= false;
+boolean ra_b= false;
+boolean ra_ep= false;
+boolean ra_fr= false;
+boolean ra_t= false;		
+
+		for (String att: Atributos){
+			if(att.equals("ar_s"))
+				ar_s = true;
+			if(att.equals("tr_co"))
+				tr_co = true;
+		}
+		
+		// faltaria las variables q borre del mensaje
 		
 		
 		Inclinacion incl = Inclinacion.valueOf(ar_incl);
