@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import Beans.bOrdendeServicio;
 import Beans.bReclamo;
 import negocio.Ciudadano;
