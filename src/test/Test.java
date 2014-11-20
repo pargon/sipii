@@ -172,7 +172,7 @@ public class Test {
 		
 		//mostrar
 		if (eM!=null){
-				String []atributos2= {"tr_ab","ra_cr"};
+				String []atributos2= {"ra_cr"};
 				ge.modificarEspacio3("Calle 1", "300","Arbol","2", 1, 1, "mas45","NA", "Normal", "Normal", "Equilibrada",
 						"Chica", "Chica","Chica", "Anillos", "Vereda", "Quemaduras","Cantera",atributos2);
 			}else{
