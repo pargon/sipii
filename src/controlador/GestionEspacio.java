@@ -37,41 +37,78 @@ import negocio.Referencia;;
 public class GestionEspacio {
 	
 	private Estado estado;
-			
-	
-	public int crearArbol(String aaa, String bbb, String nomeacuerdo, String [] Atributos){
+	public int crearArbol(int esp, String ar_alt,int ar_est, float ar_per,String ar_incl,String ar_ori,String co_dF, String co_cF, String co_Est,
+			String tr_cB, String tr_cM, String tr_cA,String tr_dest,String tr_interf,
+		 String ra_dest, String ra_interf, String [] Atributos){
+						
+		boolean ar_s =false;
+		boolean tr_co = false;
+		boolean tr_ab =false;
+		boolean tr_desg=false;
+		boolean tr_desc=false;
+		boolean tr_raj=false;
+		boolean tr_fr=false;
+		boolean tr_ch=false;
+		boolean tr_en=false;
+		boolean ra_co=false;
+		boolean ra_cr=false;
+		boolean ra_mI=false;
+		boolean ra_s=false;
+		boolean ra_mR=false;
+		boolean ra_f=false;
+		boolean ra_c=false;
+		boolean ra_ex=false;
+	    boolean ra_b=false;
+	    boolean ra_ep=false;
+	    boolean ra_fr=false;
+	    boolean ra_t=false;
 		
-		
-		boolean ar_s= false;
-		boolean tr_co= false;
-boolean tr_ab= false;
-boolean tr_desg= false;
-boolean tr_desc= false;
-boolean tr_raj= false;
-boolean tr_fr= false;
-boolean tr_ch= false;
-boolean tr_en= false;
-boolean ra_co= false;
-boolean ra_cr= false;
-boolean ra_mI= false;
-boolean ra_s= false;
-boolean ra_mR= false;
-boolean ra_f= false;
-boolean ra_c= false;
-boolean ra_ex= false;
-boolean ra_b= false;
-boolean ra_ep= false;
-boolean ra_fr= false;
-boolean ra_t= false;		
-
-		for (String att: Atributos){
-			if(att.equals("ar_s"))
-				ar_s = true;
-			if(att.equals("tr_co"))
-				tr_co = true;
+				
+		for( String att: Atributos){
+			 if( att.equals("ar_s"))
+				 ar_s = true;
+			 if(att.equals("tr_co"))
+				 tr_co = true;
+			 if(att.equals("tr_ab"))
+				 tr_ab= true;
+			 if(att.equals("tr_desg"))
+				 tr_desg= true;
+			 if(att.equals("tr_desc"))
+				 tr_desc= true;
+			 if(att.equals("tr_raj"))
+				 tr_raj= true;
+			 if(att.equals("tr_fr"))
+				 tr_fr= true;
+			 if(att.equals("tr_ch"))
+				 tr_ch= true;
+			 if(att.equals("tr_en"))
+				 tr_en = true;
+			 if(att.equals("ra_co"))
+				 ra_co= true;
+			 if(att.equals("ra_cr"))
+				 ra_cr= true;
+			 if(att.equals("ra_mI"))
+				 ra_mI= true;
+			 if(att.equals("ra_s"))
+				 ra_s= true;
+			 if(att.equals("ra_mR"))
+				 ra_mR= true;
+			 if(att.equals("ra_f"))
+				 ra_f= true;
+			 if(att.equals("ra_c"))
+				 ra_c= true;
+			 if(att.equals("ra_ex"))
+				 ra_ex= true;	
+			 if(att.equals("ra_b"))
+				 ra_b= true;
+			 if(att.equals("ra_ep"))
+				 ra_ep= true;
+			 if(att.equals("ra_fr"))
+				 ra_fr= true;
+			 if(att.equals("ra_t"))
+				 ra_t= true;
+			   			 
 		}
-		
-		// faltaria las variables q borre del mensaje
 		
 		
 		Inclinacion incl = Inclinacion.valueOf(ar_incl);
