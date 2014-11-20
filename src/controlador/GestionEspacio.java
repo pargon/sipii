@@ -264,6 +264,27 @@ public class GestionEspacio {
 				InterferenciaRama r_interf = InterferenciaRama.valueOf(ra_interf);
 				e.getArbol().getRama().setDest(r_dest);
 				e.getArbol().getRama().setInterf(r_interf);
+				
+				e.getArbol().setSeco(ar_s);
+				e.getArbol().getTronco().setCodominancia(tr_co);
+				e.getArbol().getTronco().setAbultamientos(tr_ab);
+				e.getArbol().getTronco().setDesgarrado(tr_desg);
+				e.getArbol().getTronco().setDescortezamiento(tr_desc);
+				e.getArbol().getTronco().setRajaduras(tr_raj);
+				e.getArbol().getTronco().setFructificaciones(tr_fr);
+				e.getArbol().getTronco().setChorreados(tr_ch);
+				e.getArbol().getTronco().setEnredadera(tr_en);
+				e.getArbol().getRama().setCorteza(ra_co);
+				e.getArbol().getRama().setMalInsertadas(ra_mI);
+				e.getArbol().getRama().setSecas(ra_s);
+				e.getArbol().getRama().setMuerteRegresiva(ra_mR);
+				e.getArbol().getRama().setFisuradas(ra_f);
+				e.getArbol().getRama().setCavidades(ra_c);
+				e.getArbol().getRama().setExcesivas(ra_ex);
+				e.getArbol().getRama().setBajas(ra_b);
+				e.getArbol().getRama().setEpifitas(ra_ep);
+				e.getArbol().getRama().setFructificaciones(ra_fr);
+				e.getArbol().getRama().setTocones(ra_t);
 				e.getArbol().getRama().setCruzadas(ra_cr);
 				
 				int k = calcularEstado(e.getArbol());
